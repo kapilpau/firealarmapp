@@ -2,3 +2,4 @@ node_modules/**/*
 .expo/**/*
 .idea
 android/app/build/**/*
+ios/Pods/**/*
