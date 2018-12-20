@@ -1,9 +1,13 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
-import MainTabNavigator from './navigation/MainTabNavigator';
-import LoginScreen from './screens/LoginScreen';
 import { AsyncStorage } from "react-native";
+import Home from './components/Home'
+import Login from './components/Login'
+import Settings from './components/Settings'
+import Signup from './components/Signup'
+import { createStackNavigator } from 'react-navigation'
+
 
 export default class App extends React.Component {
   state = {
@@ -11,52 +15,42 @@ export default class App extends React.Component {
   };
 
     componentDidMount() {
-        AsyncStorage.getItem('user').then(user => {
-            this.setState({user: user});
-        })
-
-    }
-
-    componentWillUnmount() {
-        // this.authSubscription();
+        // let user = {id:1, username:"kaps_1997", email:"kaps_1997@yahoo.com", password:"Pass", name:"Kapil Pau", createdAt:"2018-12-18T16:55:33.000Z", updatedAt:"2018-12-18T16:55:33.000Z"}
+        // AsyncStorage.setItem('user', JSON.stringify(user));
+        // AsyncStorage.getItem('user').then(user => {
+        //     this.setState({user: user});
+        //     console.log(this.state)
+        // });
     }
 
   render() {
-
-      if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      );
-    } else if (this.state.user) {
-        console.log("User already logged in:");
-        console.log(this.state.user);
+        // alert(JSON.stringify(this.state));
+        let RootStack;
+      if (this.state.user) {
+          RootStack = createStackNavigator({
+              Home: Home,
+              Login: Login,
+              Settings: Settings,
+              Signup: Signup
+          });
+      } else {
+          RootStack = createStackNavigator({
+              Login: Login,
+              Home: Home,
+              Settings: Settings,
+              Signup: Signup
+          });
+      }
         try {
-            console.log("Setting AsyncStorage user");
-            AsyncStorage.setItem('user', JSON.stringify(this.state.user));
-        } catch (error) {
-            console.log(error);
+            return <RootStack />;
+        } catch (e) {
+              console.log(e);
+            return (
+                <View style={styles.container}>
+                    <Text>Loading</Text>
+                </View>
+            )
         }
-
-        return (
-            <View style={styles.container}>
-                {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-                <MainTabNavigator />
-            </View>
-        );
-    } else {
-        console.log("User not logged in yet");
-        return (
-            <View style={styles.container}>
-                {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-                <LoginScreen />
-            </View>
-        );
-
-    }
   }
 
   _loadResourcesAsync = async () => {
@@ -86,11 +80,9 @@ export default class App extends React.Component {
   };
 }
 
-
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#B8EFFF',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#B8EFFF',
+    },
 });
