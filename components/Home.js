@@ -8,39 +8,56 @@ import { styles } from './Styles'
 
 export default class Home extends React.Component {
 
+    constructor() {
+        super();
+	        this.render = this.render.bind(this);
+    }
+
     componentDidMount() {
+        global.opts = this;
         AsyncStorage.getItem('user').then(user => {
-            console.log(user);
-            this.setState({user: user});
-        });
+	    global.user = JSON.parse(user);
+            this.setState({user: JSON.parse(user)});
+	    global.opts = this;
+	}).catch(err => console.log(err));
+
         this.render = this.render.bind(this);
     }
 
     render() {
-        try {
-            console.log(this);
-            console.log(this.state);
+	console.log("Global opts:");
+        let user = global.user;
+	console.log(user);
+        if (user)
+        {
+            try {
+                console.log(user);
+                return (
+                    <View style={styles.container}>
+                        <View style={styles.welcomeContainer}>
+                            <Text>Welcome {user.name}</Text>
+                        </View>
+
+                        <View style={styles.getStartedContainer}>
+
+                         </View>
+                     </View>
+                 );
+             } catch(e) {
+                 console.log(e);
+                 return (
+                     <View style={styles.container}>
+                         <Text>Loading caught</Text>
+                     </View>
+                 );
+             }
+         } else {
             return (
                 <View style={styles.container}>
-                    <View style={styles.welcomeContainer}>
-                        {/*<Text>Welcome {this.state.user.name}</Text>*/}
-                        <Text>Foo</Text>
-                    </View>
-
-                    <View style={styles.getStartedContainer}>
-                        {/*{this._renderAlarms()}*/}
-
-                    </View>
+                    <Text>Loading else</Text>
                 </View>
             );
-        } catch(e) {
-            console.log(e);
-            return (
-                <View style={styles.container}>
-                    <Text>Loading</Text>
-                </View>
-            );
-        }
+         }
     }
 
     _renderAlarms() {
