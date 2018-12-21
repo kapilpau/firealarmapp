@@ -26,32 +26,33 @@ export default class App extends React.Component {
     constructor() {
         super();
         AsyncStorage.getItem('user').then(user => {
-            this.setState({user: user});
+            this.setState({user: JSON.parse(user)});
         });
     }
   render() {
         // AsyncStorage.getItem('user').then(user => {
         // let user = user;
         // console.log(user);
-        let signedInStack = RootStack = createStackNavigator({
+	console.log("App user:");
+	console.log(this.state.user)
+	let RootStack;
+      if (this.state.user) {
+          RootStack = createStackNavigator({
               Home: Home,
-              Settings: Settings
-        });
-        let notSignedInStack = RootStack = createStackNavigator({
               Login: Login,
+              Settings: Settings,
               Signup: Signup
-        });
-	let SwitchNav = createSwitchNavigator({
-		signedIn: signedInStack,
-		notSignedIn: notSignedInStack
-	});
+          });
+      } else {
+          RootStack = createStackNavigator({
+              Login: Login,
+              Home: Home,
+              Settings: Settings,
+              Signup: Signup
+          });
+      }
         
-	if (this.state.user){
-	    SwitchNav.initialRouteName = 'signedIn';
-	} else {
-	    SwitchNav.initialRouteName = 'notSignedIn';
-	}
-        return (<SwitchNav />);
+        return (<RootStack />);
     // });
         // return (
         //   <View style={styles.container}>

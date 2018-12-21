@@ -44,7 +44,7 @@ export default class Login extends React.Component {
                 .then((res) => {
                     console.log("user");
                     console.log(res);
-                    // this._loginResp(res);
+                    this._loginResp(res);
                     // if (res.message === "Incorrect" || res.message === "User doesn't exist")
                     // {
                     //     this.setState({errorMsg: "User not found/incorrect password. Please check your username and password then try again."});
@@ -76,24 +76,24 @@ export default class Login extends React.Component {
     _loginResp(res){
         console.log("ahfoahfw");
         console.log(res);
-        alert(JSON.stringify(res));
-        // if (res.message === "Incorrect" || res.message === "User doesn't exist")
-        // {
-        //     console.log("Error:");
-        //     console.log(res.message);
-        //     this.setState({errorMsg: "User not found/incorrect password. Please check your username and password then try again."});
-        // }
-        // else {
-        //     console.log("Logged in");
-        //     try {
-        //         AsyncStorage.setItem('user', JSON.stringify(res.user));
-        //         this.setState({user: res.user});
-        //         // this.props.navigation.navigate("Home");
-        //     } catch (error) {
-        //         console.log("Async catch");
-        //         console.log(error);
-        //     }
-        // }
+        //alert(JSON.stringify(res));
+         if (res.message === "Incorrect" || res.message === "User doesn't exist")
+         {
+             console.log("Error:");
+             console.log(res.message);
+             this.setState({errorMsg: "User not found/incorrect password. Please check your username and password then try again."});
+         }
+         else {
+             console.log("Logged in");
+             try {
+                 AsyncStorage.setItem('user', JSON.stringify(res.user));
+                 this.setState({user: res.user});
+                 this.props.navigation.navigate("Home");
+             } catch (error) {
+                 console.log("Async catch");
+                 console.log(error);
+             }
+         }
     }
 
     handleSignup = () => {
