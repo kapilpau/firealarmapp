@@ -14,14 +14,18 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
+    "@expo/vector-icons": "^8.0.0",
     "eslint": "^5.10.0",
     "expo": "^30.0.2",
     "expokit": "^1.7.1",
+    "metro-react-native-babel-preset": "^0.51.1",
     "react": "^16.6.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "react-native-elements": "^0.19.1",
     "react-native-local-storage": "^1.5.2",
     "react-native-push-notification": "^3.1.2",
     "react-native-scripts": "^2.0.1",
+    "react-native-vector-icons": "^6.1.0",
     "react-navigation": "^2.18.3"
   },
   "devDependencies": {

@@ -3,14 +3,59 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
-import { styles } from './Styles'
-
+import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator } from 'react-native';
+import { styles } from './Styles';
+import { Icon } from 'react-native-elements';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Font, AppLoading } from 'expo'
 export default class Home extends React.Component {
 
-    constructor() {
-        super();
-	        this.render = this.render.bind(this);
+    static navigationOptions = ({navigation}) => {
+      console.log(navigation.state.params);
+      if (navigation.state.params)
+      {
+        console.log(navigation.state.params);
+        return {
+          title: 'Home',
+          headerLeft: null,
+          headerRight: navigation.state.params.header
+        }
+      } else {
+        return {
+          title: 'Fire Alarm',
+          headerLeft: null
+        }
+      }
+
+    }
+
+    async componentWillMount() {
+      await Font.loadAsync({ 'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
+        .then(() => {
+          console.log("Loaded fonts");
+          this.setState({fontsLoaded: true}, () =>
+              {
+                console.log("Fiansodn");
+                this.props.navigation.setParams({header: (
+                  <Icon
+                    name='settings'
+                    type='AntDesign'
+                    onPress={() => this.props.navigation.navigate("Settings")}
+                  />
+                )})
+              }
+            );
+          // this.forceReload();
+        });
+       await Font.loadAsync(MaterialIcons.font)
+
+     }
+
+    constructor(props) {
+        super(props);
+        this.state = {fontsLoaded: false}
+        this.render = this.render.bind(this);
+        props.navigation.setParams({header: null});
     }
 
     componentDidMount() {
@@ -25,9 +70,9 @@ export default class Home extends React.Component {
     }
 
     render() {
-	console.log("Global opts:");
-        let user = global.user;
-	console.log(user);
+    	console.log("Global opts:");
+      let user = global.user;
+    	console.log(user);
         if (user)
         {
             try {
@@ -39,7 +84,7 @@ export default class Home extends React.Component {
                         </View>
 
                         <View style={styles.getStartedContainer}>
-
+                          {this._renderAlarms()}
                          </View>
                      </View>
                  );
@@ -52,10 +97,12 @@ export default class Home extends React.Component {
                  );
              }
          } else {
-            return (
-                <View style={styles.container}>
-                    <Text>Loading else</Text>
-                </View>
+           return (
+             <ActivityIndicator
+               animating={true}
+               style={styles.indicator}
+               size="large"
+             />
             );
          }
     }
@@ -72,7 +119,7 @@ export default class Home extends React.Component {
         /* TODO: Add db pull */
 
         return (
-            <View>{alarmList}</View>
+            <View></View>
 
         );
 

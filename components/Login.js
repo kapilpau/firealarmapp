@@ -101,6 +101,7 @@ export default class Login extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.welcomeContainer}>
+                    <Text>{"\n\n"}</Text>
                     <Image
                         source={
                             require('../assets/images/icon.png')
@@ -111,7 +112,7 @@ export default class Login extends React.Component {
 
                 <View style={styles.getStartedContainer}>
 
-                    <Text style={styles.getStartedText}>Login</Text>
+                    <Text style={styles.getStartedText}>Login{"\n"}</Text>
 
                     <TextInput placeholder="Email" autoCapitalize="none" textContentType="username"
                                keyboardType="email-address" style={{
@@ -120,13 +121,14 @@ export default class Login extends React.Component {
                         borderColor: this.state.usernameBorderColour,
                         borderWidth: this.state.usernameBorderWidth
                     }} onChangeText={(text) => this.setState({username: text})}/>
+                    <Text>{"\n"}</Text>
                     <TextInput placeholder="Password" secureTextEntry={true} textContentType="password" style={{
                         height: 40,
                         width: "75%",
                         borderColor: this.state.passwordBorderColour,
                         borderWidth: this.state.passwordBorderWidth
                     }} onChangeText={(text) => this.setState({password: text})}/>
-                    {/*<Button onPress={() => { Alert.alert('You tapped the button!'); }} title="Press Me" />*/}
+                    <Text>{"\n"}</Text>
                     <Button title="Log In" onPress={this._handleLogin}/>
                     <Button title="Click to create account" onPress={() => this.props.navigation.navigate('Signup')} />
 

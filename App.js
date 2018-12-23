@@ -25,6 +25,7 @@ export default class App extends React.Component {
 
     constructor() {
         super();
+        this.state = {fontsLoaded: false}
         AsyncStorage.getItem('user').then(user => {
             this.setState({user: JSON.parse(user)});
         });
@@ -51,7 +52,7 @@ export default class App extends React.Component {
               Signup: Signup
           });
       }
-        
+
         return (<RootStack />);
     // });
         // return (

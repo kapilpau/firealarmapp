@@ -122,6 +122,7 @@ export default class Signup extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.welcomeContainer}>
+                    <Text>{"\n\n"}</Text>
                     <Image
                         source={
                             require('../assets/images/icon.png')
@@ -132,7 +133,7 @@ export default class Signup extends React.Component {
 
                 <View style={styles.getStartedContainer}>
 
-                    <Text style={styles.getStartedText}>Sign Up</Text>
+                    <Text style={styles.getStartedText}>Sign Up{"\n"}</Text>
 
                     <TextInput placeholder="Username" autoCapitalize="none" textContentType="username"
                                style={{
@@ -141,6 +142,7 @@ export default class Signup extends React.Component {
                         borderColor: this.state.usernameBorderColour,
                         borderWidth: this.state.usernameBorderWidth
                     }} onChangeText={(text) => this.setState({username: text})}/>
+                    <Text>{"\n"}</Text>
                     <TextInput placeholder="Email" autoCapitalize="none" textContentType="emailAddress"
                                keyboardType="email-address" style={{
                         height: 40,
@@ -148,6 +150,7 @@ export default class Signup extends React.Component {
                         borderColor: this.state.emailBorderColour,
                         borderWidth: this.state.emailBorderWidth
                     }} onChangeText={(text) => this.setState({email: text})}/>
+                    <Text>{"\n"}</Text>
                     <TextInput placeholder="Name"
                                style={{
                         height: 40,
@@ -155,19 +158,24 @@ export default class Signup extends React.Component {
                         borderColor: this.state.nameBorderColour,
                         borderWidth: this.state.nameBorderWidth
                     }} onChangeText={(text) => this.setState({name: text})}/>
+                    <Text>{"\n"}</Text>
                     <TextInput placeholder="Password" secureTextEntry={true} textContentType="password" style={{
                         height: 40,
                         width: "75%",
                         borderColor: this.state.passwordBorderColour,
                         borderWidth: this.state.passwordBorderWidth
                     }} onChangeText={(text) => this.setState({password: text})}/>
+                    <Text>{"\n"}</Text>
                     <TextInput placeholder="Confirm Password" secureTextEntry={true} textContentType="password" style={{
                         height: 40,
                         width: "75%",
                         borderColor: this.state.confirmPasswordBorderColour,
                         borderWidth: this.state.confirmPasswordBorderWidth
                     }} onChangeText={(text) => this.setState({confirmPassword: text})}/>
+                    <Text>{"\n"}</Text>
                     <Button title="Sign Up" onPress={() => this._handleSignup()} />
+                    <Button title="Return to login" onPress={() => this.props.navigation.navigate("Login")} />
+                    <Text>{"\n"}</Text>
 
                 </View>
                 <View>
