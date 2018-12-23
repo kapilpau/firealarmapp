@@ -3,8 +3,11 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, Platform, ScrollView, Button, TextInput, TouchableOpacity, Alert, AsyncStorage } from 'react-native';
 import { styles } from './Styles'
+// const url = "81.133.242.237";
+const url = "192.168.1.108";
+const port = "3000";
 
 export default class Signup extends React.Component {
     static navigationOptions = {
@@ -13,11 +16,106 @@ export default class Signup extends React.Component {
 
     constructor() {
         super();
-        this.state = {username: "", password: "", confirmPassword: "", name: "", email: "", errorMsg: "", usernameBorderColour: 'gray', passwordBorderColour: 'gray', usernameBorderWidth: 1, passwordBorderWidth: 1};
+        this.state = {
+          username: "",
+          password: "",
+          confirmPassword: "",
+          name: "",
+          email: "",
+          errorMsg: "",
+          usernameBorderColour: 'gray',
+          passwordBorderColour: 'gray',
+          usernameBorderWidth: 1,
+          passwordBorderWidth: 1,
+          nameBorderColour: 'gray',
+          confirmPasswordBorderColour: 'gray',
+          nameBorderWidth: 1,
+          confirmPasswordBorderWidth: 1,
+          emailBorderColour: 'gray',
+          emailBorderWidth: 1
+        };
     }
 
-    handleSignup = () => {
+    _handleSignup = () => {
+      console.log("Signing up");
+      console.log(this.state);
+      if (this.state.username !== "" && this.state.name !== "" && this.state.email !== "" && this.state.password !== "" && this.state.confirmPassword !== "" && this.state.password === this.state.confirmPassword)
+      {
+        fetch('http://'+ url + ':' + port + '/signup', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password,
+                name: this.state.name,
+                email: this.state.email
+            }),
+        })
+            .then(user => user.json())
+            .then(user => {
+                  console.log(user)
+                  if (user.message === "User already exists")
+                  {
+                    alert("User already exists")
+                  } else {
+                    AsyncStorage.setItem('user', JSON.stringify(user.user))
+                      .then(() => {
+                        this.props.navigation.navigate("Home");
+                      });
+                  }
 
+                // If you need to do anything with the user, do it here
+                // The user will be logged in automatically by the
+                // `onAuthStateChanged` listener we set up in App.js earlier
+            })
+            .catch((error) => {
+              console.log(error);
+                // const { code, message } = error;
+                // switch (code) {
+                //     case 'auth/email-already-in-use':
+                //         this.setState({errorMsg: "User not found/incorrect password. Please check your email and password then try again."});
+                //         break;
+                //     case 'auth/invalid-email':
+                //         this.setState({errorMsg: "Entered email was invalid, please check it and try again."});
+                //         break;
+                //     case 'auth/weak-password':
+                //         this.setState({errorMsg: "Password is too weak"});
+                //         break;
+                // }
+            });
+          } else {
+            if (this.state.username === "") {
+                this.setState({usernameBorderColour: 'red', usernameBorderWidth: 3});
+            } else {
+              this.setState({usernameBorderColour: 'gray', usernameBorderWidth: 1});
+            }
+            if (this.state.name === "") {
+                this.setState({nameBorderColour: 'red', nameBorderWidth: 3});
+            } else {
+                this.setState({nameBorderColour: 'gray', nameBorderWidth: 1});
+            }
+            if (this.state.email === "") {
+                this.setState({emailBorderColour: 'red', emailBorderWidth: 3});
+            } else {
+                this.setState({emailBorderColour: 'gray', emailBorderWidth: 1});
+            }
+            if (this.state.password === "") {
+                this.setState({passwordBorderColour: 'red', passwordBorderWidth: 3});
+            } else {
+                this.setState({passwordBorderColour: 'gray', passwordBorderWidth: 1});
+            }
+            if (this.state.confirmPassword === "") {
+                this.setState({confirmPasswordBorderColour: 'red', confirmPasswordBorderWidth: 3});
+            } else {
+                this.setState({confirmPasswordBorderColour: 'gray', confirmPasswordBorderWidth: 1});
+            }
+            if (this.state.confirmPassword !== this.state.password) {
+                this.setState({passwordBorderColour: 'red', passwordBorderWidth: 3, confirmPasswordBorderColour: 'red', confirmPasswordBorderWidth: 3});
+            }
+          }
     };
 
     render() {
@@ -43,20 +141,20 @@ export default class Signup extends React.Component {
                         borderColor: this.state.usernameBorderColour,
                         borderWidth: this.state.usernameBorderWidth
                     }} onChangeText={(text) => this.setState({username: text})}/>
-                    <TextInput placeholder="Email" autoCapitalize="none" textContentType="email"
+                    <TextInput placeholder="Email" autoCapitalize="none" textContentType="emailAddress"
                                keyboardType="email-address" style={{
                         height: 40,
                         width: "75%",
-                        borderColor: this.state.usernameBorderColour,
-                        borderWidth: this.state.usernameBorderWidth
-                    }} onChangeText={(text) => this.setState({username: text})}/>
+                        borderColor: this.state.emailBorderColour,
+                        borderWidth: this.state.emailBorderWidth
+                    }} onChangeText={(text) => this.setState({email: text})}/>
                     <TextInput placeholder="Name"
                                style={{
                         height: 40,
                         width: "75%",
-                        borderColor: this.state.usernameBorderColour,
-                        borderWidth: this.state.usernameBorderWidth
-                    }} onChangeText={(text) => this.setState({username: text})}/>
+                        borderColor: this.state.nameBorderColour,
+                        borderWidth: this.state.nameBorderWidth
+                    }} onChangeText={(text) => this.setState({name: text})}/>
                     <TextInput placeholder="Password" secureTextEntry={true} textContentType="password" style={{
                         height: 40,
                         width: "75%",
@@ -66,10 +164,10 @@ export default class Signup extends React.Component {
                     <TextInput placeholder="Confirm Password" secureTextEntry={true} textContentType="password" style={{
                         height: 40,
                         width: "75%",
-                        borderColor: this.state.passwordBorderColour,
-                        borderWidth: this.state.passwordBorderWidth
+                        borderColor: this.state.confirmPasswordBorderColour,
+                        borderWidth: this.state.confirmPasswordBorderWidth
                     }} onChangeText={(text) => this.setState({confirmPassword: text})}/>
-                    <Button title="Sign Up" onPress={() => opts.handleSignup} />
+                    <Button title="Sign Up" onPress={() => this._handleSignup()} />
 
                 </View>
                 <View>

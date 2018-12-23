@@ -96,43 +96,6 @@ export default class Login extends React.Component {
          }
     }
 
-    handleSignup = () => {
-        fetch('http://'+ url + ':' + port + '/signup', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password,
-                name: this.state.name,
-                email: this.state.email
-            }),
-        })
-            .then((user) => {
-                console.log("Signed up");
-                console.log(user);
-                // If you need to do anything with the user, do it here
-                // The user will be logged in automatically by the
-                // `onAuthStateChanged` listener we set up in App.js earlier
-            })
-            .catch((error) => {
-                const { code, message } = error;
-                switch (code) {
-                    case 'auth/email-already-in-use':
-                        this.setState({errorMsg: "User not found/incorrect password. Please check your email and password then try again."});
-                        break;
-                    case 'auth/invalid-email':
-                        this.setState({errorMsg: "Entered email was invalid, please check it and try again."});
-                        break;
-                    case 'auth/weak-password':
-                        this.setState({errorMsg: "Password is too weak"});
-                        break;
-                }
-            });
-    };
-
     render() {
 //        console.log(this.state);
         return (
