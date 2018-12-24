@@ -13,8 +13,8 @@ const deviceHeight = windowSize.height -1000;
 console.log("iaoifjsdofij");
 console.log(deviceHeight);
 
- // const url = "81.133.242.237";
- const url = "192.168.1.108";
+ const url = "81.133.242.237";
+ // const url = "192.168.1.108";
  const port = "3000";
 
 export default class AddDevice extends React.Component {
