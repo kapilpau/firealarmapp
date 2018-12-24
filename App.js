@@ -2,10 +2,12 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import { AsyncStorage } from "react-native";
-import Home from './components/Home'
-import Login from './components/Login'
-import Settings from './components/Settings'
-import Signup from './components/Signup'
+import Home from './components/Home';
+import Login from './components/Login';
+import Settings from './components/Settings';
+import Signup from './components/Signup';
+import AddDevice from './components/AddDevice';
+
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 
 
@@ -34,22 +36,22 @@ export default class App extends React.Component {
         // AsyncStorage.getItem('user').then(user => {
         // let user = user;
         // console.log(user);
-	console.log("App user:");
-	console.log(this.state.user)
 	let RootStack;
       if (this.state.user) {
           RootStack = createStackNavigator({
               Home: Home,
               Login: Login,
               Settings: Settings,
-              Signup: Signup
+              Signup: Signup,
+              AddDevice: AddDevice
           });
       } else {
           RootStack = createStackNavigator({
               Login: Login,
               Home: Home,
               Settings: Settings,
-              Signup: Signup
+              Signup: Signup,
+              AddDevice: AddDevice
           });
       }
 

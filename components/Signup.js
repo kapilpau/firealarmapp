@@ -5,8 +5,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Platform, ScrollView, Button, TextInput, TouchableOpacity, Alert, AsyncStorage } from 'react-native';
 import { styles } from './Styles'
-// const url = "81.133.242.237";
-const url = "192.168.1.108";
+const url = "81.133.242.237";
+// const url = "192.168.1.108";
 const port = "3000";
 
 export default class Signup extends React.Component {
@@ -37,8 +37,6 @@ export default class Signup extends React.Component {
     }
 
     _handleSignup = () => {
-      console.log("Signing up");
-      console.log(this.state);
       if (this.state.username !== "" && this.state.name !== "" && this.state.email !== "" && this.state.password !== "" && this.state.confirmPassword !== "" && this.state.password === this.state.confirmPassword)
       {
         fetch('http://'+ url + ':' + port + '/signup', {
@@ -56,7 +54,6 @@ export default class Signup extends React.Component {
         })
             .then(user => user.json())
             .then(user => {
-                  console.log(user)
                   if (user.message === "User already exists")
                   {
                     alert("User already exists")

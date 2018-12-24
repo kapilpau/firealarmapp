@@ -3,6 +3,8 @@
 #import "AppDelegate.h"
 #import "ExpoKit.h"
 #import "EXViewController.h"
+@import GooglePlaces;
+@import GoogleMaps;
 
 @interface AppDelegate ()
 
@@ -21,7 +23,8 @@
     _window.rootViewController = _rootViewController;
 
     [_window makeKeyAndVisible];
-    
+    [GMSPlacesClient provideAPIKey:@"AIzaSyCRf9F6L1Cnrt8O6iwp1cddMqgPYT6Igz0"];
+    [GMSServices provideAPIKey:@"AIzaSyCRf9F6L1Cnrt8O6iwp1cddMqgPYT6Igz0"];
     return YES;
 }
 

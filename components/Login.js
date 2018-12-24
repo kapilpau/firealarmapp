@@ -26,7 +26,6 @@ export default class Login extends React.Component {
         this.setState({errorMsg: "", usernameBorderColour: 'gray', usernameBorderWidth: 1, passwordBorderColour: 'gray', passwordBorderWidth: 1});
         if (this.state.username != "" && this.state.password != "")
         {
-            console.log('http://'+ url + ':' + port + '/login');
             fetch('http://'+ url + ':' + port + '/login', {
                 method: 'POST',
                 headers: {
@@ -42,8 +41,6 @@ export default class Login extends React.Component {
                 // .then(res => console.log(res))
                 .then((res) => res)
                 .then((res) => {
-                    console.log("user");
-                    console.log(res);
                     this._loginResp(res);
                     // if (res.message === "Incorrect" || res.message === "User doesn't exist")
                     // {
@@ -74,8 +71,6 @@ export default class Login extends React.Component {
     };
 
     _loginResp(res){
-        console.log("ahfoahfw");
-        console.log(res);
         //alert(JSON.stringify(res));
          if (res.message === "Incorrect" || res.message === "User doesn't exist")
          {
@@ -84,7 +79,6 @@ export default class Login extends React.Component {
              this.setState({errorMsg: "User not found/incorrect password. Please check your username and password then try again."});
          }
          else {
-             console.log("Logged in");
              try {
                  AsyncStorage.setItem('user', JSON.stringify(res.user));
                  this.setState({user: res.user});
@@ -114,8 +108,8 @@ export default class Login extends React.Component {
 
                     <Text style={styles.getStartedText}>Login{"\n"}</Text>
 
-                    <TextInput placeholder="Email" autoCapitalize="none" textContentType="username"
-                               keyboardType="email-address" style={{
+                    <TextInput placeholder="Username" autoCapitalize="none" textContentType="username"
+                               style={{
                         height: 40,
                         width: "75%",
                         borderColor: this.state.usernameBorderColour,

@@ -298,7 +298,7 @@
     <!-- BEGIN GOOGLE MAPS CONFIG -->
     <meta-data
       android:name="com.google.android.geo.API_KEY"
-      android:value="AIzaSyCPyKmt6in3JwAsogYikNNjor8qgU9stRQ"/>
+      android:value="AIzaSyCG7LdYiMQIuggXT6enrLRWe7kdSB9S2bc"/>
     <!-- END GOOGLE MAPS CONFIG -->
 
     <!-- ADD BRANCH CONFIG HERE -->

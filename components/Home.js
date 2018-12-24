@@ -7,14 +7,14 @@ import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator } from 
 import { styles } from './Styles';
 import { Icon } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Font, AppLoading } from 'expo'
+import { Font, AppLoading } from 'expo';
+import ActionButton from 'react-native-action-button';
+
 export default class Home extends React.Component {
 
     static navigationOptions = ({navigation}) => {
-      console.log(navigation.state.params);
       if (navigation.state.params)
       {
-        console.log(navigation.state.params);
         return {
           title: 'Home',
           headerLeft: null,
@@ -32,10 +32,8 @@ export default class Home extends React.Component {
     async componentWillMount() {
       await Font.loadAsync({ 'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
         .then(() => {
-          console.log("Loaded fonts");
           this.setState({fontsLoaded: true}, () =>
               {
-                console.log("Fiansodn");
                 this.props.navigation.setParams({header: (
                   <Icon
                     name='settings'
@@ -70,13 +68,10 @@ export default class Home extends React.Component {
     }
 
     render() {
-    	console.log("Global opts:");
       let user = global.user;
-    	console.log(user);
         if (user)
         {
             try {
-                console.log(user);
                 return (
                     <View style={styles.container}>
                         <View style={styles.welcomeContainer}>
@@ -86,6 +81,10 @@ export default class Home extends React.Component {
                         <View style={styles.getStartedContainer}>
                           {this._renderAlarms()}
                          </View>
+                         <ActionButton
+                            buttonColor="rgba(0,0,255,1)"
+                            onPress={() => { this.props.navigation.navigate("AddDevice") }}
+                          />
                      </View>
                  );
              } catch(e) {
