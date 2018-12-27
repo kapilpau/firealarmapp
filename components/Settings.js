@@ -4,7 +4,8 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
-import { styles } from './Styles'
+import { styles } from './Styles';
+import App from '../App';
 
 export default class Settings extends React.Component {
     render() {
@@ -18,8 +19,11 @@ export default class Settings extends React.Component {
     handleLogout = () => {
         try {
             console.log("Unsetting AsyncStorage user");
-            AsyncStorage.removeItem('user');
-            this.props.navigation.navigate("Login");
+            AsyncStorage.getItem('user').then(user => {
+              App.socketLeave(JSON.parse(user).id);
+              AsyncStorage.removeItem('user');
+              this.props.navigation.navigate("Login");
+            });
         } catch (error) {
             console.log(error);
         }

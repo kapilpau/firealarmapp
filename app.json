@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "firealarmapp",
-    "description": "A very interesting project.",
+    "description": "Universal mobile application for IoT Fire Alarms",
     "slug": "firealarmapp",
     "privacy": "public",
     "sdkVersion": "30.0.0",
@@ -15,7 +15,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#B8EFFF"
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -25,7 +25,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kapilpau.iotfirealarm",
+      "bundleIdentifier": "com.kapilpau.firealarmapp",
       "publishBundlePath": "ios/firealarmapp/Supporting/shell-app.bundle",
       "publishManifestPath": "ios/firealarmapp/Supporting/shell-app-manifest.json",
       "splash": {
@@ -41,7 +41,7 @@
     },
     "scheme": "exp06a691a0a933414690a8aa85e01e61f4",
     "android": {
-      "package": "com.kapilpau.iotfirealarm",
+      "package": "com.kapilpau.firealarmapp",
       "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
       "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json",
       "splash": {

@@ -9,19 +9,19 @@ import { styles } from './Styles';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 const windowSize = require('Dimensions').get('window')
 const deviceWidth = windowSize.width;
-const deviceHeight = windowSize.height -1000;
-console.log("iaoifjsdofij");
-console.log(deviceHeight);
-
- const url = "81.133.242.237";
- // const url = "192.168.1.108";
- const port = "3000";
+const deviceHeight = windowSize.height;
+import SocketIOClient from 'socket.io-client';
+import { config } from '../config'
 
 export default class AddDevice extends React.Component {
 
+  static navigationOptions = {
+      title: 'Add Device',
+  };
+
     constructor(){
       super();
-      this.state = {locBtnTxt: "Select location", comments: "", deviceid: null, location: null, modalVisible: false, deviceidBorderColour: 'gray', deviceidBorderWidth: 1, commentsBorderColour: 'gray', commentsBorderWidth: 1, mapsAPI: Platform.OS === 'android' ? "AIzaSyCG7LdYiMQIuggXT6enrLRWe7kdSB9S2bc" : "AIzaSyCRf9F6L1Cnrt8O6iwp1cddMqgPYT6Igz0"};
+      this.state = {locBtnTxt: "Select location", comments: "", deviceid: null, location: null, modalVisible: false, nameBorderColor: 'gray', nameBorderWidth: 1, deviceidBorderColour: 'gray', deviceidBorderWidth: 1, commentsBorderColour: 'gray', commentsBorderWidth: 1, mapsAPI: Platform.OS === 'android' ? "AIzaSyCG7LdYiMQIuggXT6enrLRWe7kdSB9S2bc" : "AIzaSyCRf9F6L1Cnrt8O6iwp1cddMqgPYT6Igz0"};
       AsyncStorage.getItem('user').then(user => {
           this.setState({user: JSON.parse(user)});
       });
@@ -29,9 +29,9 @@ export default class AddDevice extends React.Component {
 
     _addDevice = () => {
       console.log(this.state.locBtnTxt);
-      if (this.state.deviceid && this.state.locBtnTxt !== "Select location")
+      if (this.state.deviceid && this.state.locBtnTxt !== "Select location" && this.state.name)
       {
-        fetch('http://'+ url + ':' + port + '/registerDevice', {
+        fetch('http://'+ config.url + ':' + config.port + '/registerDevice', {
           method: 'POST',
           headers: {
               // Accept: 'application/json',
@@ -39,6 +39,7 @@ export default class AddDevice extends React.Component {
           },
           body: JSON.stringify({
               uid: this.state.deviceid,
+              name: this.state.name,
               loc: this.state.location,
               comments: this.state.comments,
               user: this.state.user.id
@@ -57,6 +58,11 @@ export default class AddDevice extends React.Component {
         } else {
           this.setState({deviceidBorderColour: 'gray', deviceidBorderWidth: 1});
         }
+        if (!this.state.name) {
+          this.setState({nameBorderColor: 'red', nameBorderWidth: 3});
+        } else {
+          this.setState({nameBorderColor: 'gray', nameBorderWidth: 1});
+        }
       }
     }
 
@@ -65,13 +71,20 @@ export default class AddDevice extends React.Component {
         <View style={styles.welcomeContainer}>
             <Text>Add new device{"\n"}</Text>
             <TextInput placeholder="Device ID" autoCapitalize="none"
-                       style={{
+               style={{
                 height: 40,
                 width: "75%",
                 borderColor: this.state.deviceidBorderColour,
                 borderWidth: this.state.deviceidBorderWidth
             }} onChangeText={(text) => this.setState({deviceid: text})}/>
-
+            <Text>{"\n"}</Text>
+            <TextInput placeholder="Device Name" autoCapitalize="sentences"
+                style={{
+                 height: 40,
+                 width: "75%",
+                 borderColor: this.state.nameBorderColor,
+                 borderWidth: this.state.nameBorderWidth
+             }} onChangeText={(text) => this.setState({name: text})}/>
             <Modal
               animationType="slide"
               transparent={false}
@@ -79,6 +92,7 @@ export default class AddDevice extends React.Component {
               onRequestClose={() => {
                 // Alert.alert('Modal has been closed.');
               }}>
+              <Text>{"\n"}</Text>
               <View style={{marginTop: 22}}>
                 <View>
                 <GooglePlacesAutocomplete
@@ -121,7 +135,8 @@ export default class AddDevice extends React.Component {
                     },
                     listView: {
                       position: 'absolute',
-                      height: deviceHeight-100,
+                      paddingTop: 40,
+                      height: deviceHeight,
                       width: deviceWidth
                     }
                   }}
@@ -143,7 +158,6 @@ export default class AddDevice extends React.Component {
 
                   debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
                   // renderLeftButton={()  => <Image source={require('path/custom/left-icon')} />}
-                  renderRightButton={() => <Text>Custom text after the input</Text>}
                 />
                 </View>
               </View>

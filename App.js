@@ -1,49 +1,93 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { AppLoading, Asset, Font, Icon, Permissions, Notifications } from 'expo';
 import { AsyncStorage } from "react-native";
 import Home from './components/Home';
 import Login from './components/Login';
 import Settings from './components/Settings';
 import Signup from './components/Signup';
 import AddDevice from './components/AddDevice';
-
+import SocketIOClient from 'socket.io-client';
+import Alert from './components/Alert';
+import { config } from './config'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
-
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
 
-    componentDidMount() {
-        // let user = {id:1, username:"kaps_1997", email:"kaps_1997@yahoo.com", password:"Pass", name:"Kapil Pau", createdAt:"2018-12-18T16:55:33.000Z", updatedAt:"2018-12-18T16:55:33.000Z"}
-        // AsyncStorage.setItem('user', JSON.stringify(user));
-        // AsyncStorage.getItem('user').then(user => {
-        //     console.log(user);
-        //     this.setState({user: user});
-        // });
-        }
+
+
+  async registerForPushNotificationsAsync(username) {
+      // Get the token that uniquely identifies this device
+      let token = await Notifications.getExpoPushTokenAsync();
+
+      // POST the token to your backend server from where you can retrieve it to send push notifications.
+      return fetch('http://' + config.url + ':' + config.port + '/addPushToken', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            value: token,
+            id: id
+        }),
+      });
+    }
+
+
+    async componentWillMount() {
+
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+      let finalStatus = existingStatus;
+
+      // only ask if permissions have not already been determined, because
+      // iOS won't necessarily prompt the user a second time.
+      if (existingStatus !== 'granted') {
+        // Android remote notification permissions are granted during the app
+        // install, so this will only ask on iOS
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+
+      // Stop here if the user did not grant permissions
+      if (finalStatus !== 'granted') {
+        return;
+      }
+    }
+
 
     constructor() {
         super();
-        this.state = {fontsLoaded: false}
+        this.state = {fontsLoaded: false};
+        module.exports.socket = SocketIOClient('http://' + config.url + ':' + config.port);
         AsyncStorage.getItem('user').then(user => {
             this.setState({user: JSON.parse(user)});
+            if (user){
+                App.socketJoin(JSON.parse(user).id)
+            }
         });
     }
+
+
   render() {
+
         // AsyncStorage.getItem('user').then(user => {
         // let user = user;
         // console.log(user);
-	let RootStack;
+    	let RootStack;
       if (this.state.user) {
           RootStack = createStackNavigator({
               Home: Home,
               Login: Login,
               Settings: Settings,
               Signup: Signup,
-              AddDevice: AddDevice
+              AddDevice: AddDevice,
+              Alert: Alert
           });
       } else {
           RootStack = createStackNavigator({
@@ -51,11 +95,11 @@ export default class App extends React.Component {
               Home: Home,
               Settings: Settings,
               Signup: Signup,
-              AddDevice: AddDevice
+              AddDevice: AddDevice,
+              Alert: Alert
           });
       }
-
-        return (<RootStack />);
+      return (<RootStack />);
     // });
         // return (
         //   <View style={styles.container}>
@@ -66,10 +110,6 @@ export default class App extends React.Component {
 
   _loadResourcesAsync = async () => {
     return Promise.all([
-      Asset.loadAsync([
-        require('./assets/images/robot-dev.png'),
-        require('./assets/images/robot-prod.png'),
-      ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         ...Icon.Ionicons.font,
@@ -89,7 +129,24 @@ export default class App extends React.Component {
   _handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });
   };
+
+  static socketJoin = (id) => {
+    module.exports.socket.emit('join', id);
+    console.log(`Joining ${id}`);
+  }
+
+  static socketLeave = (id) => {
+    module.exports.socket.emit('leave', id);
+  }
+
+  static onSocket = (event, fn) => {
+    module.exports.socket.on(event, fn);
+  }
 }
+
+// module.exports = {
+//   socket: App.socket
+// };
 
 const styles = StyleSheet.create({
     container: {

@@ -4,14 +4,14 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, Image, Platform, ScrollView, Button, TextInput, TouchableOpacity, Alert, AsyncStorage } from 'react-native';
-import { styles } from './Styles'
-const url = "81.133.242.237";
-// const url = "192.168.1.113";
-const port = "3000";
+import { styles } from './Styles';
+import App from '../App';
+import { config } from '../config'
 
 export default class Login extends React.Component {
     static navigationOptions = {
         header: null,
+        gesturesEnabled: false
     };
 
     constructor() {
@@ -26,7 +26,7 @@ export default class Login extends React.Component {
         this.setState({errorMsg: "", usernameBorderColour: 'gray', usernameBorderWidth: 1, passwordBorderColour: 'gray', passwordBorderWidth: 1});
         if (this.state.username != "" && this.state.password != "")
         {
-            fetch('http://'+ url + ':' + port + '/login', {
+            fetch('http://'+ config.url + ':' + config.port + '/login', {
                 method: 'POST',
                 headers: {
                     // Accept: 'application/json',
@@ -42,24 +42,7 @@ export default class Login extends React.Component {
                 .then((res) => res)
                 .then((res) => {
                     this._loginResp(res);
-                    // if (res.message === "Incorrect" || res.message === "User doesn't exist")
-                    // {
-                    //     this.setState({errorMsg: "User not found/incorrect password. Please check your username and password then try again."});
-                    // }
-                    // else {
-                    //     console.log("Logged in");
-                    //     try {
-                    //         AsyncStorage.setItem('user', JSON.stringify(res.user));
-                    //         this.setState({user: res.user});
-                    //         this.props.navigation.navigate("Home");
-                    //     } catch (error) {
-                    //         console.log("Async catch");
-                    //         console.log(error);
-                    //     }
-                    // }
-                    // return;
                 });
-                // .then(user => {this.setState({resp: user})});
         } else {
             if (this.state.username === "") {
                 this.setState({usernameBorderColour: 'red', usernameBorderWidth: 3});
@@ -82,6 +65,7 @@ export default class Login extends React.Component {
              try {
                  AsyncStorage.setItem('user', JSON.stringify(res.user));
                  this.setState({user: res.user});
+                 App.socketJoin(res.user.id);
                  this.props.navigation.navigate("Home");
              } catch (error) {
                  console.log("Async catch");

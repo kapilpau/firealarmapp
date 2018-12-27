@@ -4,10 +4,9 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, Image, Platform, ScrollView, Button, TextInput, TouchableOpacity, Alert, AsyncStorage } from 'react-native';
-import { styles } from './Styles'
-const url = "81.133.242.237";
-// const url = "192.168.1.108";
-const port = "3000";
+import { styles } from './Styles';
+import App from '../App';
+import { url, port } from '../config'
 
 export default class Signup extends React.Component {
     static navigationOptions = {
@@ -60,6 +59,7 @@ export default class Signup extends React.Component {
                   } else {
                     AsyncStorage.setItem('user', JSON.stringify(user.user))
                       .then(() => {
+                        App.socketJoin(user.user.id);
                         this.props.navigation.navigate("Home");
                       });
                   }

@@ -33,6 +33,8 @@ export const styles = StyleSheet.create({
     getStartedContainer: {
         alignItems: 'center',
         marginHorizontal: 50,
+        flex: 1,
+        justifyContent: 'center',
     },
     homeScreenFilename: {
         marginVertical: 7,
@@ -94,5 +96,19 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         color: '#ff0000',
         fontWeight: 'bold'
+    },
+    cardViewStyle:{
+
+      width: 250,
+      height: 150,
+
+    },
+    cardView_InsideText:{
+
+      fontSize: 20,
+      color: '#000',
+      textAlign: 'center',
+      marginTop: 50
+
     }
 });
