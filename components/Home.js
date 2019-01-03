@@ -3,13 +3,12 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { styles } from './Styles';
-import { Icon } from 'react-native-elements';
+import { Icon, Card } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Font, AppLoading } from 'expo';
 import ActionButton from 'react-native-action-button';
-import CardView from 'react-native-cardview';
 import App from '../App'
 import { config } from '../config'
 
@@ -36,8 +35,7 @@ export default class Home extends React.Component {
     }
 
     async componentWillMount() {
-      console.log("cWM");
-      await Font.loadAsync({ 'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
+      await Font.loadAsync({ 'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
         .then(() => {
           this.setState({fontsLoaded: true}, () =>
               {
@@ -52,30 +50,34 @@ export default class Home extends React.Component {
             );
           // this.forceReload();
         });
-        // this.setState({});
-       await Font.loadAsync(MaterialIcons.font)
-
+       // await Font.loadAsync(MaterialIcons.font)
+       //   .then(() => {
+       //     this.setState({fontsLoaded: true}, () =>
+       //         {
+       //           this.props.navigation.setParams({header: (
+       //             <Icon
+       //               name='settings'
+       //               type='AntDesign'
+       //               onPress={() => this.props.navigation.navigate("Settings")}
+       //             />
+       //           )})
+       //         }
+       //       );
+       //     // this.forceReload();
+       //   });
      }
 
     constructor(props) {
         super(props);
-        console.log("Const");
         props.navigation.setParams({header: null});
         this.state = {fontsLoaded: false, alarms:[], open: false};
         App.onSocket('message', function(msg) {
-            // console.log(msg);
             props.navigation.navigate('Alert', {alarm: JSON.parse(msg)});
-            // alert(msg);
         });
-        // App.socket.on('message', function(msg) {
-        //     <Alert />;
-        //     alert(msg);
-        // });
     }
 
 
     componentDidMount() {
-      console.log("cDM");
         global.opts = this;
         AsyncStorage.getItem('user').then(user => {
       	    global.user = JSON.parse(user);
@@ -96,46 +98,106 @@ export default class Home extends React.Component {
             let circleSize = 20;
             if (alarm.status === "warning"){
               circleColour = '#FFBF00';
-            } else if (alarm.status === "error" || alarm.status === "triggered") {
+            } else if (alarm.status === "error" || alarm.status === "triggered" || alarm.status === "triggered") {
               circleColour = 'red';
             }
-            return (
-                <CardView
-                  cardElevation={3}
-                  cardMaxElevation={2}
-                  cornerRadius={5}
-                   paddingBottom={10}
-                   style={{
-                     justifyContent:'center',
-                     margin:2,
-                     backgroundColor:'white',
-                     width: '90%',
-                     paddingTop: 10,
-                     paddingLeft: 5,
-                     marginBottom: 30
-                   }}
-                 >
-                    <View>
-                      <Text style={{fontSize:20}}>
-                        {alarm.name + "\n"}
-                      </Text>
-                      <View style={{
-                            width: circleSize,
-                            height: circleSize,
-                            borderRadius: circleSize/2,
-                            position: 'absolute',
-                            right: '5%',
-                            top: '30%',
-                            backgroundColor: circleColour
-                        }}/>
-                      <Text style={{fontSize: 15}}>
-                        {alarm.comments + "\n"}
-                      </Text>
-                    </View>
-                </CardView>
-                          );
+            if (alarm.status === "triggered" || alarm.status === "triggered") {
+                return (
+
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Alert', {alarm: alarm})}
+                        style={{
+                            width: '100%',
+                            paddingLeft: '5%'
+                        }}
+                    >
+                        <Card
+                            key={alarm.id}
+                            containerStyle={{
+                                justifyContent: 'center',
+                                margin: 2,
+                                backgroundColor: 'white',
+                                width: '90%',
+                                paddingTop: 10,
+                                paddingLeft: '5%',
+                                paddingRight: '5%',
+                                marginBottom: 30
+                            }}
+                        >
+                            <View>
+                                <View
+                                    style={{
+                                        right: '5%'
+                                    }}
+                                >
+                                    <Text style={{fontSize: 20}}>
+                                        {alarm.name + "\n"}
+                                    </Text>
+                                    <Text style={{fontSize: 13}}>
+                                        {alarm.addressName + "\n"}
+                                    </Text>
+                                    <Text style={{fontSize: 15}}>
+                                        {alarm.comments + "\n"}
+                                    </Text>
+                                </View>
+                                <View style={{
+                                    width: circleSize,
+                                    height: circleSize,
+                                    borderRadius: circleSize / 2,
+                                    position: 'absolute',
+                                    right: '1%',
+                                    top: '30%',
+                                    backgroundColor: circleColour
+                                }}/>
+                            </View>
+                        </Card>
+                    </TouchableOpacity>
+                );
+            } else {
+                return (
+                        <Card
+                            key={alarm.id}
+                            containerStyle={{
+                                justifyContent: 'center',
+                                margin: 2,
+                                backgroundColor: 'white',
+                                width: '90%',
+                                paddingTop: 10,
+                                paddingLeft: '5%',
+                                marginBottom: 30
+                            }}
+                        >
+                            <View>
+                                <View
+                                    style={{
+                                        right: '5%'
+                                    }}
+                                >
+                                    <Text style={{fontSize: 20}}>
+                                        {alarm.name + "\n"}
+                                    </Text>
+                                    <Text style={{fontSize: 13}}>
+                                        {alarm.addressName + "\n"}
+                                    </Text>
+                                    <Text style={{fontSize: 15}}>
+                                        {alarm.comments + "\n"}
+                                    </Text>
+                                </View>
+                                <View style={{
+                                    width: circleSize,
+                                    height: circleSize,
+                                    borderRadius: circleSize / 2,
+                                    position: 'absolute',
+                                    right: '1%',
+                                    top: '30%',
+                                    backgroundColor: circleColour
+                                }}/>
+                            </View>
+                        </Card>
+                );
+            }
           });
-            try {
+          try {
                 return (
                     <View style={styles.container}>
                         <View style={styles.welcomeContainer}>

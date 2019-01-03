@@ -9,37 +9,43 @@ import { Icon } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Font, AppLoading } from 'expo';
 import ActionButton from 'react-native-action-button';
-import CardView from 'react-native-cardview';
 import {RNSlidingButton, SlideDirection} from 'rn-sliding-button';
 import { config } from '../config'
 
 export default class Alert extends React.Component {
+
+  state = {alarm: this.props.navigation.state.params.alarm, time: '5:00'};
+
   constructor(props) {
     super(props);
-    console.log(props.navigation.state.params);
-    this.state = {alarm: props.navigation.state.params.alarm, time: '5:00'};
     global.alarm = props.navigation.state.params.alarm;
 
   }
 
-  componentDidMount() {
-    // let endTime, now, diff, minutes, seconds, time;
-    // do{
-    //   setTimeout(function() {
-    //     endTime = (new Date(this.state.alarm.updatedAt).getTime()/1000) + (5 * 60);
-    //     now = new Date().getTime()/1000;
-    //     diff = (endTime - now)/60
-    //     minutes = Math.floor(diff);
-    //     seconds = Math.floor(diff%60);
-    //     if (seconds < 10)
-    //     {
-    //       seconds = "0" + seconds;
-    //     }
-    //     time = `${minutes}:${seconds}`;
-    //     console.log(time);
-    //     this.setState({time: time});
-    //   }, 1000);
-    // } while(time !== "0:00")
+  componentDidMount(){
+    // this.tick = this.tick.bind(this);
+    this.countdown = setInterval(() => this.tick(), 1000);
+  }
+
+  tick = () => {
+    let endTime, now, diff, minutes, seconds, time;
+    endTime = (new Date(this.state.alarm.detectedAt).getTime()/1000) + (5 * 60);
+    now = new Date().getTime()/1000;
+    diff = endTime - now;
+    minutes = Math.floor(diff/60);
+    seconds = Math.floor(diff%60);
+    if (minutes <= 0 && seconds <= 0){
+        clearInterval(this.countdown);
+        time = "Emergency services have been notified";
+    } else {
+        if (seconds < 10)
+        {
+            seconds = "0" + seconds;
+        }
+        time = `${minutes}:${seconds}`;
+    }
+    this.setState({time: time});
+
   }
 
 
@@ -60,7 +66,6 @@ export default class Alert extends React.Component {
           id: this.props.navigation.state.params.alarm.id
       })
     }).then(() => {
-      console.log("ainfefn");
       this.props.navigation.navigate('Home');
     })
   }

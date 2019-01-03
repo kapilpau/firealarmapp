@@ -19,7 +19,7 @@ export default class App extends React.Component {
 
 
 
-  async registerForPushNotificationsAsync(username) {
+  static async registerForPushNotificationsAsync(id) {
       // Get the token that uniquely identifies this device
       let token = await Notifications.getExpoPushTokenAsync();
 
@@ -40,23 +40,26 @@ export default class App extends React.Component {
 
     async componentWillMount() {
 
-      const { status: existingStatus } = await Permissions.getAsync(
-        Permissions.NOTIFICATIONS
-      );
-      let finalStatus = existingStatus;
-
-      // only ask if permissions have not already been determined, because
-      // iOS won't necessarily prompt the user a second time.
-      if (existingStatus !== 'granted') {
-        // Android remote notification permissions are granted during the app
-        // install, so this will only ask on iOS
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-        finalStatus = status;
-      }
-
-      // Stop here if the user did not grant permissions
-      if (finalStatus !== 'granted') {
-        return;
+      if (Platform.OS === "android") {
+        Permissions.askAsync(Permissions.NOTIFICATIONS).then(console.log).catch(console.warn);
+        // const { status: existingStatus } = await Permissions.getAsync(
+        //   Permissions.NOTIFICATIONS
+        // ).;
+        // let finalStatus = existingStatus;
+        //
+        // // only ask if permissions have not already been determined, because
+        // // iOS won't necessarily prompt the user a second time.
+        // if (existingStatus !== 'granted') {
+        //   // Android remote notification permissions are granted during the app
+        //   // install, so this will only ask on iOS
+        //   const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        //   finalStatus = status;
+        // }
+        //
+        // // Stop here if the user did not grant permissions
+        // if (finalStatus !== 'granted') {
+        //   return;
+        // }
       }
     }
 
@@ -68,10 +71,18 @@ export default class App extends React.Component {
         AsyncStorage.getItem('user').then(user => {
             this.setState({user: JSON.parse(user)});
             if (user){
+                if (Platform.OS === "android") {
+                  App.registerForPushNotificationsAsync(JSON.parse(user).id);
+                  this._notificationSubscription = Notifications.addListener(this._handleNotification);
+                }
                 App.socketJoin(JSON.parse(user).id)
             }
         });
     }
+
+    _handleNotification = (notification) => {
+      this.setState({notification: notification});
+    };
 
 
   render() {

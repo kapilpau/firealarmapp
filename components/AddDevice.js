@@ -42,7 +42,8 @@ export default class AddDevice extends React.Component {
               name: this.state.name,
               loc: this.state.location,
               comments: this.state.comments,
-              user: this.state.user.id
+              user: this.state.user.id,
+              addressName: this.state.locBtnTxt
           })
         })
           .then((res) => res.json())

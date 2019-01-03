@@ -66,6 +66,7 @@ export default class Login extends React.Component {
                  AsyncStorage.setItem('user', JSON.stringify(res.user));
                  this.setState({user: res.user});
                  App.socketJoin(res.user.id);
+                 App.registerForPushNotificationsAsync(res.user.id)
                  this.props.navigation.navigate("Home");
              } catch (error) {
                  console.log("Async catch");

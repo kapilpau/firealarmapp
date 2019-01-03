@@ -99,6 +99,7 @@ apply from: 'expo.gradle'
 
 
 dependencies {
+    compile project(':react-native-push-notification')
     compile project(':react-native-cardview')
     compile project(':react-native-vector-icons')
   implementation fileTree(dir: 'libs', include: ['*.jar'])
