@@ -4,3 +4,4 @@ node_modules/**/*
 android/app/build/**/*
 ios/Pods/**/*
 ios/firealarmapp.xcworkspace/xcuserdata/**/*
+android/.gradle/4.4/taskHistory/taskHistory.bin
