@@ -11,7 +11,6 @@ import expolib_v1.okhttp3.OkHttpClient;
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.kishanjvaghela.cardview.RNCardViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainApplication extends ExpoApplication {
@@ -30,7 +29,6 @@ public class MainApplication extends ExpoApplication {
         // Needed for `react-native link`
         // new MainReactPackage(),
             new ReactNativePushNotificationPackage(),
-            new RNCardViewPackage(),
             new VectorIconsPackage()
     );
   }

@@ -3,12 +3,7 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, Image } from 'react-native';
-import { styles } from './Styles';
-import { Icon } from 'react-native-elements';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Font, AppLoading } from 'expo';
-import ActionButton from 'react-native-action-button';
+import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, Image, Vibration } from 'react-native';
 import {RNSlidingButton, SlideDirection} from 'rn-sliding-button';
 import { config } from '../config'
 
@@ -19,7 +14,10 @@ export default class Alert extends React.Component {
   constructor(props) {
     super(props);
     global.alarm = props.navigation.state.params.alarm;
-
+    console.log(props.navigation.state.params);
+    if (props.navigation.state.params.vibrate){
+        Vibration.vibrate([1000, 1000, 1000], true)
+    }
   }
 
   componentDidMount(){
@@ -46,14 +44,14 @@ export default class Alert extends React.Component {
     }
     this.setState({time: time});
 
-  }
+  };
 
 
   static navigationOptions = {
     headerLeft: null,
     title: 'Fire Detected',
     gesturesEnabled: false,
-  }
+  };
 
   cancelAlarm = () => {
     fetch('http://'+ config.url +':'+ config.port +'/cancelAlarm', {
@@ -66,9 +64,10 @@ export default class Alert extends React.Component {
           id: this.props.navigation.state.params.alarm.id
       })
     }).then(() => {
+        Vibration.cancel();
       this.props.navigation.navigate('Home');
     })
-  }
+  };
 
   render() {
     return (

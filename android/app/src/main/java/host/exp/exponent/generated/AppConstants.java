@@ -58,10 +58,14 @@ public class AppConstants {
         
         
         
+        
+        
+        
+        
         // ADD EMBEDDED RESPONSES HERE
         // START EMBEDDED RESPONSES
         embeddedResponses.add(new Constants.EmbeddedResponse("https://exp.host/@kdnp3/firealarmapp", "assets://shell-app-manifest.json", "application/json"));
-        embeddedResponses.add(new Constants.EmbeddedResponse("https://d1wp6m56sqw74a.cloudfront.net/%40kdnp3%2Ffirealarmapp%2F1.0.0%2Ffe808e1a6ea12dab4700995a1546026b-30.0.0-android.js", "assets://shell-app.bundle", "application/javascript"));
+        embeddedResponses.add(new Constants.EmbeddedResponse("https://d1wp6m56sqw74a.cloudfront.net/%40kdnp3%2Ffirealarmapp%2F1.0.0%2F65dfff2aaa2e04a4833baf740b1b6adb-30.0.0-android.js", "assets://shell-app.bundle", "application/javascript"));
         // END EMBEDDED RESPONSES
     EMBEDDED_RESPONSES = embeddedResponses;
   }

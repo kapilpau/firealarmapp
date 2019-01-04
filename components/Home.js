@@ -72,7 +72,7 @@ export default class Home extends React.Component {
         props.navigation.setParams({header: null});
         this.state = {fontsLoaded: false, alarms:[], open: false};
         App.onSocket('message', function(msg) {
-            props.navigation.navigate('Alert', {alarm: JSON.parse(msg)});
+            props.navigation.navigate('Alert', {alarm: JSON.parse(msg), vibrate: true});
         });
     }
 
@@ -105,7 +105,7 @@ export default class Home extends React.Component {
                 return (
 
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Alert', {alarm: alarm})}
+                        onPress={() => this.props.navigation.navigate('Alert', {alarm: alarm, vibrate: false})}
                         style={{
                             width: '100%',
                             paddingLeft: '5%'
