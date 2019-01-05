@@ -3,19 +3,21 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, Image, Vibration } from 'react-native';
+import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, Image, Vibration, NativeModules } from 'react-native';
+const { Torch } = NativeModules;
 import {RNSlidingButton, SlideDirection} from 'rn-sliding-button';
-import { config } from '../config'
+import { config } from '../config';
+
 
 export default class Alert extends React.Component {
 
-  state = {alarm: this.props.navigation.state.params.alarm, time: '5:00'};
+  state = {alarm: this.props.navigation.state.params.alarm, time: '5:00', torch: true};
 
   constructor(props) {
     super(props);
     global.alarm = props.navigation.state.params.alarm;
-    console.log(props.navigation.state.params);
     if (props.navigation.state.params.vibrate){
+        console.log("Torch should be on");
         Vibration.vibrate([1000, 1000, 1000], true)
     }
   }
@@ -65,6 +67,8 @@ export default class Alert extends React.Component {
       })
     }).then(() => {
         Vibration.cancel();
+
+        this.setState({torch: false});
       this.props.navigation.navigate('Home');
     })
   };

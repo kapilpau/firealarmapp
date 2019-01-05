@@ -6,7 +6,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Platform, ScrollView, Button, TextInput, TouchableOpacity, Alert, AsyncStorage } from 'react-native';
 import { styles } from './Styles';
 import App from '../App';
-import { url, port } from '../config'
+import { config } from '../config';
 
 export default class Signup extends React.Component {
     static navigationOptions = {
@@ -38,7 +38,7 @@ export default class Signup extends React.Component {
     _handleSignup = () => {
       if (this.state.username !== "" && this.state.name !== "" && this.state.email !== "" && this.state.password !== "" && this.state.confirmPassword !== "" && this.state.password === this.state.confirmPassword)
       {
-        fetch('http://'+ url + ':' + port + '/signup', {
+        fetch('http://'+ config.url + ':' + config.port + '/signup', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

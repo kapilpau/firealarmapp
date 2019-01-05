@@ -233,6 +233,11 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNSound (0.10.9):
+    - React/Core
+    - RNSound/Core (= 0.10.9)
+  - RNSound/Core (0.10.9):
+    - React/Core
   - RNVectorIcons (6.1.0):
     - React
   - Stripe (13.0.3)
@@ -288,6 +293,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNSound (from `../node_modules/react-native-sound`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -391,6 +397,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
+  RNSound:
+    :path: "../node_modules/react-native-sound"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -462,10 +470,11 @@ SPEC CHECKSUMS:
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
   lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   React: aa2040dbb6f317b95314968021bd2888816e03d5
+  RNSound: b360b3862d3118ed1c74bb9825696b5957686ac4
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
   Stripe: 76c203e21555089b708e6cbe972a3e3baf1ab4d8
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 5f0d1ac1472e9ee51a5319028af2d3b184618a20
+PODFILE CHECKSUM: c1a265d9e5900d8c57154ccd637c799a39e9bddc
 
 COCOAPODS: 1.5.3

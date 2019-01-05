@@ -32,7 +32,7 @@ export default class Home extends React.Component {
         }
       }
 
-    }
+    };
 
     async componentWillMount() {
       await Font.loadAsync({ 'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
@@ -94,6 +94,9 @@ export default class Home extends React.Component {
         if (user)
         {
           let Alarms = this.state.alarms.map((alarm) => {
+            if (!alarm.comments){
+                alarm.comments = "";
+            }
             let circleColour = 'green';
             let circleSize = 20;
             if (alarm.status === "warning"){

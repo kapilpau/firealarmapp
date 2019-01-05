@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Settings from './components/Settings';
 import Signup from './components/Signup';
 import AddDevice from './components/AddDevice';
+import RegisterDevice from './components/RegisterDevice';
 import SocketIOClient from 'socket.io-client';
 import Alert from './components/Alert';
 import { config } from './config'
@@ -98,6 +99,7 @@ export default class App extends React.Component {
               Settings: Settings,
               Signup: Signup,
               AddDevice: AddDevice,
+              RegisterDevice: RegisterDevice,
               Alert: Alert
           });
       } else {
@@ -107,6 +109,7 @@ export default class App extends React.Component {
               Settings: Settings,
               Signup: Signup,
               AddDevice: AddDevice,
+              RegisterDevice: RegisterDevice,
               Alert: Alert
           });
       }
