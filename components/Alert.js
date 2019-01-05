@@ -69,7 +69,7 @@ export default class Alert extends React.Component {
         Vibration.cancel();
 
         this.setState({torch: false});
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('Home', {rerender: true});
     })
   };
 

@@ -50,7 +50,7 @@ export default class RegisterDevice extends React.Component {
                 .then((res) => {
                     console.log(res);
                     if (res.message === "Created successfully") {
-                        this.props.navigation.navigate("Home");
+                        this.props.navigation.navigate("Home", {rerender: true});
                     }
                 });
         } else {

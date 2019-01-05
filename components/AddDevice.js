@@ -43,7 +43,8 @@ export default class AddDevice extends React.Component {
         }).then(res => res.json())
             .then(res => {
                 if (res.message === "exists") {
-                    this.props.navigation.navigate('Home');
+                    console.log(res);
+                    this.props.navigation.navigate('Home', {rerender: true});
                 } else {
                     this.props.navigation.navigate('RegisterDevice', {deviceid: this.state.deviceid})
                 }

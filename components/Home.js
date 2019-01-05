@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, TouchableOpacity } from 'react-native';
+import PTRView from 'react-native-pull-to-refresh';
 import { styles } from './Styles';
 import { Icon, Card } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -35,6 +36,7 @@ export default class Home extends React.Component {
     };
 
     async componentWillMount() {
+        console.log("cwm");
       await Font.loadAsync({ 'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
         .then(() => {
           this.setState({fontsLoaded: true}, () =>
@@ -69,6 +71,7 @@ export default class Home extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log("constructor");
         props.navigation.setParams({header: null});
         this.state = {fontsLoaded: false, alarms:[], open: false};
         App.onSocket('message', function(msg) {
@@ -79,17 +82,24 @@ export default class Home extends React.Component {
 
     componentDidMount() {
         global.opts = this;
+        console.log("cdm");
         AsyncStorage.getItem('user').then(user => {
       	    global.user = JSON.parse(user);
             this.setState({user: JSON.parse(user)});
-            this._renderAlarms(user);
+            console.log("aklsnklanff");
+            this._renderAlarms();
       	    global.opts = this;
       	}).catch(err => console.log(err));
 
         this.render = this.render.bind(this);
     }
 
+    componentDidUpdate() {
+        console.log("cdu");
+    }
+
     render() {
+        console.log("render");
       let user = global.user;
         if (user)
         {
@@ -203,9 +213,11 @@ export default class Home extends React.Component {
           try {
                 return (
                     <View style={styles.container}>
+                        <PTRView onRefresh={() => {this._renderAlarms().then(r => console.log(r))}} >
                         <View style={styles.welcomeContainer}>
                         { Alarms }
                          </View>
+                        </PTRView>
                          <ActionButton
                             buttonColor="rgba(0,0,255,1)"
                             onPress={() => { this.props.navigation.navigate("AddDevice") }}
@@ -213,7 +225,7 @@ export default class Home extends React.Component {
                      </View>
                  );
              } catch(e) {
-                 console.log(e);
+                 console.log(JSON.stringify(e));
                  return (
                      <View style={styles.container}>
                          <Text>Loading caught</Text>
@@ -231,22 +243,29 @@ export default class Home extends React.Component {
          }
     }
 
-    _renderAlarms(user) {
-        fetch('http://' + config.url + ':'+ config.port + '/getDevices/' + JSON.parse(user).id, {
-          method: 'GET',
-          headers: {
-              // Accept: 'application/json',
-              'Content-Type': 'application/json',
-          }
-        })
-          .then((res) => res.json())
-          .then((res) => {
-            if (res.message === "No alarms") {
-              return;
-            } else {
-              this.setState({alarms: res.alarms});
-            }
-          })
+    _renderAlarms() {
+        const obj = this;
+        const user = this.state.user;
+        return new Promise(function (resolve, reject) {
+            fetch('http://' + config.url + ':' + config.port + '/getDevices/' + user.id, {
+                method: 'GET',
+                headers: {
+                    // Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                console.log(res);
+                    if (res.message !== "No alarms") {
+                        obj.setState({alarms: res.alarms});
+                    }
+                    resolve(res.alarms);
+                }).catch(e => {
+                    console.log(e);
+                    reject(e);
+            })
+        });
     }
 
 };
