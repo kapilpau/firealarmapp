@@ -7,7 +7,7 @@ import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, Image,
 const { Torch } = NativeModules;
 import {RNSlidingButton, SlideDirection} from 'rn-sliding-button';
 import { config } from '../config';
-
+import App from '../App';
 
 export default class Alert extends React.Component {
 
@@ -20,6 +20,11 @@ export default class Alert extends React.Component {
         console.log("Torch should be on");
         Vibration.vibrate([1000, 1000, 1000], true)
     }
+      App.onSocket('cancel', function(msg) {
+          console.log(msg);
+          Vibration.cancel();
+          props.navigation.navigate('Home');
+      });
   }
 
   componentDidMount(){

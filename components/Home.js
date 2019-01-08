@@ -7,10 +7,10 @@ import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, Toucha
 import PTRView from 'react-native-pull-to-refresh';
 import { styles } from './Styles';
 import { Icon, Card } from 'react-native-elements';
-import { MaterialIcons } from '@expo/vector-icons';
 import { Font, AppLoading } from 'expo';
 import ActionButton from 'react-native-action-button';
-import App from '../App'
+import { NavigationEvents } from 'react-navigation';
+import App from '../App';
 import { config } from '../config'
 
 export default class Home extends React.Component {
@@ -36,7 +36,6 @@ export default class Home extends React.Component {
     };
 
     async componentWillMount() {
-        console.log("cwm");
       await Font.loadAsync({ 'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
         .then(() => {
           this.setState({fontsLoaded: true}, () =>
@@ -50,31 +49,14 @@ export default class Home extends React.Component {
                 )})
               }
             );
-          // this.forceReload();
         });
-       // await Font.loadAsync(MaterialIcons.font)
-       //   .then(() => {
-       //     this.setState({fontsLoaded: true}, () =>
-       //         {
-       //           this.props.navigation.setParams({header: (
-       //             <Icon
-       //               name='settings'
-       //               type='AntDesign'
-       //               onPress={() => this.props.navigation.navigate("Settings")}
-       //             />
-       //           )})
-       //         }
-       //       );
-       //     // this.forceReload();
-       //   });
      }
 
     constructor(props) {
         super(props);
-        console.log("constructor");
         props.navigation.setParams({header: null});
         this.state = {fontsLoaded: false, alarms:[], open: false};
-        App.onSocket('message', function(msg) {
+        App.onSocket('trigger', function(msg) {
             props.navigation.navigate('Alert', {alarm: JSON.parse(msg), vibrate: true});
         });
     }
@@ -82,11 +64,9 @@ export default class Home extends React.Component {
 
     componentDidMount() {
         global.opts = this;
-        console.log("cdm");
         AsyncStorage.getItem('user').then(user => {
       	    global.user = JSON.parse(user);
             this.setState({user: JSON.parse(user)});
-            console.log("aklsnklanff");
             this._renderAlarms();
       	    global.opts = this;
       	}).catch(err => console.log(err));
@@ -94,12 +74,7 @@ export default class Home extends React.Component {
         this.render = this.render.bind(this);
     }
 
-    componentDidUpdate() {
-        console.log("cdu");
-    }
-
     render() {
-        console.log("render");
       let user = global.user;
         if (user)
         {
@@ -213,7 +188,10 @@ export default class Home extends React.Component {
           try {
                 return (
                     <View style={styles.container}>
-                        <PTRView onRefresh={() => {this._renderAlarms().then(r => console.log(r))}} >
+                        <NavigationEvents
+                            onDidFocus={payload => this._renderAlarms()}
+                        />
+                        <PTRView onRefresh={() => {this._renderAlarms()}} >
                         <View style={styles.welcomeContainer}>
                         { Alarms }
                          </View>
@@ -256,7 +234,6 @@ export default class Home extends React.Component {
             })
                 .then((res) => res.json())
                 .then((res) => {
-                console.log(res);
                     if (res.message !== "No alarms") {
                         obj.setState({alarms: res.alarms});
                     }
