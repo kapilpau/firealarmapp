@@ -7,3 +7,4 @@ ios/firealarmapp.xcworkspace/xcuserdata/**/*
 android/.gradle/4.4/taskHistory/taskHistory.bin
 android/build/**/*
 android/app/**/*
+android/.gradle/**/*
