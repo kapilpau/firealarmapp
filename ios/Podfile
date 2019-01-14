@@ -102,10 +102,15 @@ target 'firealarmapp' do
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
   pod 'GoogleMaps'
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+
+
+
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
 
   pod 'react-native-torch', :path => '../node_modules/react-native-torch'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   post_install do |installer|
     installer.pods_project.main_group.tab_width = '2';

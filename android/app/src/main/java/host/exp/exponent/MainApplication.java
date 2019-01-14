@@ -10,9 +10,10 @@ import expolib_v1.okhttp3.OkHttpClient;
 
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
-import com.cubicphuse.RCTTorch.RCTTorchPackage;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.cubicphuse.RCTTorch.RCTTorchPackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 
 public class MainApplication extends ExpoApplication {
 
@@ -29,9 +30,10 @@ public class MainApplication extends ExpoApplication {
 
         // Needed for `react-native link`
         // new MainReactPackage(),
+            new VectorIconsPackage(),
             new RCTTorchPackage(),
-            new ReactNativePushNotificationPackage(),
-            new VectorIconsPackage()
+            new RNSoundPackage(),
+            new ReactNativePushNotificationPackage()
     );
   }
 

@@ -1,10 +1,12 @@
 node_modules/**/*
 .expo/**/*
 .idea
+android/.idea
 android/app/build/**/*
 ios/Pods/**/*
 ios/firealarmapp.xcworkspace/xcuserdata/**/*
-android/.gradle/4.4/taskHistory/taskHistory.bin
 android/build/**/*
-android/app/**/*
+android/app/apks/**/*
 android/.gradle/**/*
+android/local.properties
+android/.DS_Store

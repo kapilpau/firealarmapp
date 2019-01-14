@@ -13,12 +13,14 @@ export default class Alert extends React.Component {
 
   state = {alarm: this.props.navigation.state.params.alarm, time: '5:00', torch: true};
 
+
   constructor(props) {
     super(props);
     global.alarm = props.navigation.state.params.alarm;
     if (props.navigation.state.params.vibrate){
         console.log("Torch should be on");
-        Vibration.vibrate([1000, 1000, 1000], true)
+        Vibration.vibrate([1000, 1000, 1000], true);
+
     }
       App.onSocket('cancel', function(msg) {
           console.log(msg);
@@ -72,7 +74,8 @@ export default class Alert extends React.Component {
       })
     }).then(() => {
         Vibration.cancel();
-
+        // if (this.props.navigation.state.params.vibrate){
+        // }
         this.setState({torch: false});
       this.props.navigation.navigate('Home', {rerender: true});
     })

@@ -99,9 +99,10 @@ apply from: 'expo.gradle'
 
 
 dependencies {
-    compile project(':react-native-torch')
-    compile project(':react-native-push-notification')
     compile project(':react-native-vector-icons')
+    compile project(':react-native-torch')
+    compile project(':react-native-sound')
+    compile project(':react-native-push-notification')
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
   implementation 'com.android.support:multidex:1.0.1'

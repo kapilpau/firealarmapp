@@ -198,7 +198,7 @@ export default class Home extends React.Component {
                         </PTRView>
                          <ActionButton
                             buttonColor="rgba(0,0,255,1)"
-                            onPress={() => { this.props.navigation.navigate("AddDevice") }}
+                            onPress={() => { console.log("Pressed"); this.props.navigation.navigate("AddDevice") }}
                           />
                      </View>
                  );

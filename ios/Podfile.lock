@@ -112,7 +112,7 @@ PODS:
     - JKBigInteger2 (= 0.0.5)
     - lottie-ios (~> 2.5.0)
     - React
-  - EXPrint (1.2.0):
+  - EXPrint (1.0.0):
     - EXCore
   - EXReactNativeAdapter (1.2.0):
     - EXCore
@@ -236,6 +236,11 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNSound (0.10.9):
+    - React/Core
+    - RNSound/Core (= 0.10.9)
+  - RNSound/Core (0.10.9):
+    - React/Core
   - RNVectorIcons (6.1.0):
     - React
   - Stripe (13.0.3)
@@ -292,6 +297,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNSound (from `../node_modules/react-native-sound`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -397,6 +403,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-torch:
     :path: "../node_modules/react-native-torch"
+  RNSound:
+    :path: "../node_modules/react-native-sound"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -441,7 +449,7 @@ SPEC CHECKSUMS:
   EXPermissions: dd31cb432c078eed1f4c1e290bc32649d5280bd3
   EXPermissionsInterface: 76f80a0dcd16afde36498e3d3aa168cb43999558
   ExpoKit: 8bd26597709ed939c5dd6316bd9902b0d406cb3e
-  EXPrint: b6aab9715518cf67954ae260b71e28afd843353e
+  EXPrint: 7e89a677edf046516d1c7c812c24e7714f040bdd
   EXReactNativeAdapter: 253efa069b53a6c8be7c3f2afd49ef6b4e97e902
   EXSegment: cfe9aed31dbd7f1455724afe89a4920e5dad0049
   EXSensors: 6aa3b3b9906beb0b574a88943d171ebc226b0fe5
@@ -469,10 +477,11 @@ SPEC CHECKSUMS:
   lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   react-native-torch: f973a898e0d02ff7274f8884a5e8721333cb906e
+  RNSound: b360b3862d3118ed1c74bb9825696b5957686ac4
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
   Stripe: 76c203e21555089b708e6cbe972a3e3baf1ab4d8
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 08ff92c3c125443ffc2d20629eb695b2b5d3b5e1
+PODFILE CHECKSUM: d8b83754a860360c0af386390df2a5e6f558e418
 
 COCOAPODS: 1.5.3
