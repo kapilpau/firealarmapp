@@ -189,7 +189,7 @@ export default class Home extends React.Component {
                 return (
                     <View style={styles.container}>
                         <NavigationEvents
-                            onDidFocus={payload => this._renderAlarms()}
+                            onDidFocus={payload => this.componentDidMount()}
                         />
                         <PTRView onRefresh={() => {this._renderAlarms()}} >
                         <View style={styles.welcomeContainer}>

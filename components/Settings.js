@@ -21,7 +21,7 @@ export default class Settings extends React.Component {
             console.log("Unsetting AsyncStorage user");
             AsyncStorage.getItem('user').then(user => {
               App.socketLeave(JSON.parse(user).id);
-              AsyncStorage.removeItem('user');
+              AsyncStorage.clear();
               this.props.navigation.navigate("Login");
             });
         } catch (error) {

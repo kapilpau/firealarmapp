@@ -28,6 +28,7 @@
       "bundleIdentifier": "com.kapilpau.firealarmapp",
       "publishBundlePath": "ios/firealarmapp/Supporting/shell-app.bundle",
       "publishManifestPath": "ios/firealarmapp/Supporting/shell-app-manifest.json",
+      "icon": "./assets/images/icon.png",
       "splash": {
         "image": "./assets/images/splash.png",
         "resizeMode": "contain",
@@ -44,6 +45,7 @@
       "package": "com.kapilpau.firealarmapp",
       "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
       "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json",
+      "icon": "./assets/images/icon.png",
       "splash": {
         "image": "./assets/images/splash.png",
         "resizeMode": "contain",
