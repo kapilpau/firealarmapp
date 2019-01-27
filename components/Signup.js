@@ -35,8 +35,14 @@ export default class Signup extends React.Component {
         };
     }
 
-    _handleSignup = () => {
-      if (this.state.username !== "" && this.state.name !== "" && this.state.email !== "" && this.state.password !== "" && this.state.confirmPassword !== "" && this.state.password === this.state.confirmPassword)
+    _handleSignup = async () => {
+
+        let token = await Notifications.getExpoPushTokenAsync();
+      if (this.state.username !== "" && this.state.name !== "" && this.state.email !== "" && this.state.password !== ""
+          && this.state.confirmPassword !== "" && this.state.password === this.state.confirmPassword && /^[a-zA-Z0-9_\-]+$/.test(this.state.username)
+          && this.state.password !== this.state.username && /^[a-zA-Z0-9_\-.]+@[a-zA-Z0-9_\-.]+\.[a-z]+$/.test(this.state.email)
+          && /[a-z]+/.test(this.state.password) && /[A-Z]+/.test(this.state.password) && /[0-9]/.test(this.state.password)
+          && /[!@_]+/.test(this.state.password) && this.state.password.length >= 8)
       {
         fetch('http://'+ config.url + ':' + config.port + '/signup', {
             method: 'POST',
@@ -48,7 +54,8 @@ export default class Signup extends React.Component {
                 username: this.state.username,
                 password: this.state.password,
                 name: this.state.name,
-                email: this.state.email
+                email: this.state.email,
+                token: token
             }),
         })
             .then(user => user.json())
@@ -84,34 +91,58 @@ export default class Signup extends React.Component {
                 // }
             });
           } else {
+            let newState = {
+                errorMsg: ""
+            };
             if (this.state.username === "") {
-                this.setState({usernameBorderColour: 'red', usernameBorderWidth: 3});
+                newState.usernameBorderColour = 'red';
+                newState.usernameBorderWidth = 3;
+                newState.errorMsg += "Username can't be empty\n";
+
             } else {
-              this.setState({usernameBorderColour: 'gray', usernameBorderWidth: 1});
+                newState.usernameBorderColour = 'gray';
+                newState.usernameBorderWidth = 1;
             }
             if (this.state.name === "") {
-                this.setState({nameBorderColour: 'red', nameBorderWidth: 3});
+                newState.nameBorderColour = 'red';
+                newState.nameBorderWidth = 3;
+                newState.errorMsg += "Name can't be empty\n";
             } else {
-                this.setState({nameBorderColour: 'gray', nameBorderWidth: 1});
+                newState.nameBorderColour = 'gray';
+                newState.nameBorderWidth = 1;
             }
-            if (this.state.email === "") {
-                this.setState({emailBorderColour: 'red', emailBorderWidth: 3});
+            if (this.state.email === "" || !/^[a-zA-Z0-9_\-.]+@[a-zA-Z0-9_\-.]+\.[a-z]+$/.test(this.state.email)) {
+                newState.emailBorderColour = 'red';
+                newState.emailBorderWidth = 3;
+                newState.errorMsg += "Invalid email address\n";
             } else {
-                this.setState({emailBorderColour: 'gray', emailBorderWidth: 1});
+                newState.emailBorderColour = 'gray';
+                newState.emailBorderWidth = 1;
             }
-            if (this.state.password === "") {
-                this.setState({passwordBorderColour: 'red', passwordBorderWidth: 3});
+            if (this.state.password === "" || !/[a-z]+/.test(this.state.password) || !/[A-Z]+/.test(this.state.password)
+                || !/[0-9]/.test(this.state.password) || !/[!@_]+/.test(this.state.password) || this.state.password.length < 8) {
+                newState.passwordBorderColour = 'red';
+                newState.passwordBorderWidth = 3;
+                newState.errorMsg += "Password must be 8 characters and contain at least one uppercase letter, lowercase letter, number and special character (!@_)\n";
             } else {
-                this.setState({passwordBorderColour: 'gray', passwordBorderWidth: 1});
+                newState.passwordBorderColour = 'gray';
+                newState.passwordBorderWidth = 1;
             }
             if (this.state.confirmPassword === "") {
-                this.setState({confirmPasswordBorderColour: 'red', confirmPasswordBorderWidth: 3});
+                newState.confirmPasswordBorderColour = 'red';
+                newState.confirmPasswordBorderWidth = 3;
             } else {
-                this.setState({confirmPasswordBorderColour: 'gray', confirmPasswordBorderWidth: 1});
+                newState.confirmPasswordBorderColour = 'gray';
+                newState.confirmPasswordBorderWidth = 1;
             }
             if (this.state.confirmPassword !== this.state.password) {
-                this.setState({passwordBorderColour: 'red', passwordBorderWidth: 3, confirmPasswordBorderColour: 'red', confirmPasswordBorderWidth: 3});
+                newState.passwordBorderColour = 'red';
+                newState.passwordBorderWidth = 3;
+                newState.confirmPasswordBorderColour = 'red';
+                newState.confirmPasswordBorderWidth = 3;
+                newState.errorMsg = "Passwords don't match\n"
             }
+            this.setState(newState);
           }
     };
 

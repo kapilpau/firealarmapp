@@ -61,6 +61,9 @@ export default class Home extends React.Component {
         });
     }
 
+    static alarmTriggered(alarm) {
+        props.navigation.navigate('Alert', {alarm: JSON.parse(msg), vibrate: true});
+    }
 
     componentDidMount() {
         global.opts = this;

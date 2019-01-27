@@ -6,7 +6,6 @@
 import React from 'react';
 import { Modal, StyleSheet, Text, View, Image, Platform, ScrollView, Button, TextInput, TouchableOpacity, Alert, AsyncStorage } from 'react-native';
 import { styles } from './Styles';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 const windowSize = require('Dimensions').get('window');
 const deviceWidth = windowSize.width;
 const deviceHeight = windowSize.height;

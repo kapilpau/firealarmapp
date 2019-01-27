@@ -6,8 +6,21 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
 import { styles } from './Styles';
 import App from '../App';
+import { config } from '../config';
+import { Notifications } from 'expo';
 
 export default class Settings extends React.Component {
+
+    state = {
+      token: ""
+    };
+
+    componentDidMount(){
+        Notifications.getExpoPushTokenAsync().then(token =>
+            this.setState({token: token})
+        );
+    }
+
     render() {
       return (
           <View style={{backgroundColor: '#B8EFFF'}}>
@@ -16,13 +29,23 @@ export default class Settings extends React.Component {
           );
     }
 
-    handleLogout = () => {
+    handleLogout = async () => {
         try {
-            console.log("Unsetting AsyncStorage user");
             AsyncStorage.getItem('user').then(user => {
-              App.socketLeave(JSON.parse(user).id);
-              AsyncStorage.clear();
-              this.props.navigation.navigate("Login");
+                fetch('http://' + config.url + ':' + config.port + '/logout', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        token: this.state.token,
+                        user: JSON.parse(user).id
+                    }),
+                });
+                App.socketLeave(JSON.parse(user).id);
+                AsyncStorage.clear();
+                this.props.navigation.navigate("Login");
             });
         } catch (error) {
             console.log(error);

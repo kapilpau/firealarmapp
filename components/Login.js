@@ -6,7 +6,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Platform, ScrollView, Button, TextInput, TouchableOpacity, Alert, AsyncStorage } from 'react-native';
 import { styles } from './Styles';
 import App from '../App';
-import { config } from '../config'
+import { config } from '../config';
+import { Notifications } from 'expo';
 
 export default class Login extends React.Component {
     static navigationOptions = {
@@ -19,30 +20,30 @@ export default class Login extends React.Component {
         this.state = {username: "", password: "", errorMsg: "", usernameBorderColour: 'gray', passwordBorderColour: 'gray', usernameBorderWidth: 1, passwordBorderWidth: 1};
     }
 
-    componentDidMount() {
-    }
-
-    _handleLogin = () => {
+    _handleLogin = async () => {
         this.setState({errorMsg: "", usernameBorderColour: 'gray', usernameBorderWidth: 1, passwordBorderColour: 'gray', passwordBorderWidth: 1});
         if (this.state.username != "" && this.state.password != "")
         {
-            fetch('http://'+ config.url + ':' + config.port + '/login', {
-                method: 'POST',
-                headers: {
-                    // Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: this.state.username,
-                    password: this.state.password
-                }),
-            })
-                .then(response => response.json())
-                // .then(res => console.log(res))
-                .then((res) => res)
-                .then((res) => {
-                    this._loginResp(res);
-                });
+            Notifications.getExpoPushTokenAsync().then((token) => {
+                fetch('http://'+ config.url + ':' + config.port + '/login', {
+                    method: 'POST',
+                    headers: {
+                        // Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: this.state.username,
+                        password: this.state.password,
+                        token: token
+                    }),
+                })
+                    .then(response => response.json())
+                    // .then(res => console.log(res))
+                    .then((res) => res)
+                    .then((res) => {
+                        this._loginResp(res);
+                    });
+            });
         } else {
             if (this.state.username === "") {
                 this.setState({usernameBorderColour: 'red', usernameBorderWidth: 3});
@@ -54,7 +55,6 @@ export default class Login extends React.Component {
     };
 
     _loginResp(res){
-        //alert(JSON.stringify(res));
          if (res.message === "Incorrect" || res.message === "User doesn't exist")
          {
              console.log("Error:");
@@ -66,7 +66,6 @@ export default class Login extends React.Component {
                  AsyncStorage.setItem('user', JSON.stringify(res.user));
                  this.setState({user: res.user});
                  App.socketJoin(res.user.id);
-                 App.registerForPushNotificationsAsync(res.user.id)
                  this.props.navigation.navigate("Home");
              } catch (error) {
                  console.log("Async catch");
