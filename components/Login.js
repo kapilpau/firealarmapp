@@ -24,7 +24,28 @@ export default class Login extends React.Component {
         this.setState({errorMsg: "", usernameBorderColour: 'gray', usernameBorderWidth: 1, passwordBorderColour: 'gray', passwordBorderWidth: 1});
         if (this.state.username != "" && this.state.password != "")
         {
-            Notifications.getExpoPushTokenAsync().then((token) => {
+            if (Platform.OS === "android") {
+                Notifications.getExpoPushTokenAsync().then((token) => {
+                    fetch('http://'+ config.url + ':' + config.port + '/login', {
+                        method: 'POST',
+                        headers: {
+                            // Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            username: this.state.username,
+                            password: this.state.password,
+                            token: token
+                        }),
+                    })
+                        .then(response => response.json())
+                        // .then(res => console.log(res))
+                        .then((res) => res)
+                        .then((res) => {
+                            this._loginResp(res);
+                        });
+                })
+            } else {
                 fetch('http://'+ config.url + ':' + config.port + '/login', {
                     method: 'POST',
                     headers: {
@@ -33,8 +54,7 @@ export default class Login extends React.Component {
                     },
                     body: JSON.stringify({
                         username: this.state.username,
-                        password: this.state.password,
-                        token: token
+                        password: this.state.password
                     }),
                 })
                     .then(response => response.json())
@@ -43,7 +63,7 @@ export default class Login extends React.Component {
                     .then((res) => {
                         this._loginResp(res);
                     });
-            });
+            }
         } else {
             if (this.state.username === "") {
                 this.setState({usernameBorderColour: 'red', usernameBorderWidth: 3});

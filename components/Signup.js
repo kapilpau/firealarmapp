@@ -7,6 +7,7 @@ import { StyleSheet, Text, View, Image, Platform, ScrollView, Button, TextInput,
 import { styles } from './Styles';
 import App from '../App';
 import { config } from '../config';
+import { Notifications } from 'expo';
 
 export default class Signup extends React.Component {
     static navigationOptions = {
@@ -36,8 +37,11 @@ export default class Signup extends React.Component {
     }
 
     _handleSignup = async () => {
+        let token = null;
+        if (Platform.OS === 'android'){
+            token = await Notifications.getExpoPushTokenAsync();
+        }
 
-        let token = await Notifications.getExpoPushTokenAsync();
       if (this.state.username !== "" && this.state.name !== "" && this.state.email !== "" && this.state.password !== ""
           && this.state.confirmPassword !== "" && this.state.password === this.state.confirmPassword && /^[a-zA-Z0-9_\-]+$/.test(this.state.username)
           && this.state.password !== this.state.username && /^[a-zA-Z0-9_\-.]+@[a-zA-Z0-9_\-.]+\.[a-z]+$/.test(this.state.email)

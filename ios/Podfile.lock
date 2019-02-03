@@ -112,7 +112,7 @@ PODS:
     - JKBigInteger2 (= 0.0.5)
     - lottie-ios (~> 2.5.0)
     - React
-  - EXPrint (1.0.0):
+  - EXPrint (1.2.0):
     - EXCore
   - EXReactNativeAdapter (1.2.0):
     - EXCore
@@ -449,7 +449,7 @@ SPEC CHECKSUMS:
   EXPermissions: dd31cb432c078eed1f4c1e290bc32649d5280bd3
   EXPermissionsInterface: 76f80a0dcd16afde36498e3d3aa168cb43999558
   ExpoKit: 8bd26597709ed939c5dd6316bd9902b0d406cb3e
-  EXPrint: 7e89a677edf046516d1c7c812c24e7714f040bdd
+  EXPrint: b6aab9715518cf67954ae260b71e28afd843353e
   EXReactNativeAdapter: 253efa069b53a6c8be7c3f2afd49ef6b4e97e902
   EXSegment: cfe9aed31dbd7f1455724afe89a4920e5dad0049
   EXSensors: 6aa3b3b9906beb0b574a88943d171ebc226b0fe5

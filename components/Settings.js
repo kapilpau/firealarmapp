@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Button, AsyncStorage, Platform } from 'react-native';
 import { styles } from './Styles';
 import App from '../App';
 import { config } from '../config';
@@ -16,9 +16,11 @@ export default class Settings extends React.Component {
     };
 
     componentDidMount(){
-        Notifications.getExpoPushTokenAsync().then(token =>
-            this.setState({token: token})
-        );
+        if (Platform.OS === 'android'){
+            Notifications.getExpoPushTokenAsync().then(token =>
+                this.setState({token: token})
+            );
+        }
     }
 
     render() {

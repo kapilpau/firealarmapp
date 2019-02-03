@@ -15,6 +15,8 @@
 		27259BE7F5C54F45898F0012 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FBF93F10CE643A98E0D1468 /* Entypo.ttf */; };
 		5B211716AC1C4F14BD79D90B /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9A72B778071495189A55E28 /* EvilIcons.ttf */; };
 		5CD312AFE2284A689EAF0AA9 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FD353F6E7BF4204A2CBDE42 /* SimpleLineIcons.ttf */; };
+		82A386A02207293D00D6946D /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82A3869F2207293D00D6946D /* GoogleMaps.framework */; };
+		82A386A42207299B00D6946D /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 82A386A32207299B00D6946D /* GoogleMaps.bundle */; };
 		82F6EF5521E5661500AB3B85 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F6EF5021E5661500AB3B85 /* splash.png */; };
 		82F6EF5621E5661500AB3B85 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F6EF5121E5661500AB3B85 /* icon.png */; };
 		82F6EF5721E5661500AB3B85 /* alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82F6EF5221E5661500AB3B85 /* alarm.mp3 */; };
@@ -51,6 +53,9 @@
 		5FBF93F10CE643A98E0D1468 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		7FD353F6E7BF4204A2CBDE42 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		827616D821CAB6F700F14ECA /* libReactNativeNavigation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReactNativeNavigation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		827B5EF522009F09002CA489 /* firealarmapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = firealarmapp.entitlements; sourceTree = "<group>"; };
+		82A3869F2207293D00D6946D /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		82A386A32207299B00D6946D /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		82F6EF5021E5661500AB3B85 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = splash.png; path = ../assets/images/splash.png; sourceTree = "<group>"; };
 		82F6EF5121E5661500AB3B85 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../assets/images/icon.png; sourceTree = "<group>"; };
 		82F6EF5221E5661500AB3B85 /* alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = alarm.mp3; path = ../assets/audio/alarm.mp3; sourceTree = "<group>"; };
@@ -87,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82A386A02207293D00D6946D /* GoogleMaps.framework in Frameworks */,
 				B88DC003A4FB18F01B41033A /* libPods-firealarmapp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				827616D821CAB6F700F14ECA /* libReactNativeNavigation.a */,
+				82A3869F2207293D00D6946D /* GoogleMaps.framework */,
 				C4A88D15726AD99E8A257BC7 /* libPods-firealarmapp.a */,
 			);
 			name = Frameworks;
@@ -121,6 +128,7 @@
 				1B61325CF02B4CFBA29A0D1F /* FontAwesome5_Solid.ttf */,
 				30DC2F6B07C740FCA22AAD17 /* Foundation.ttf */,
 				932FF332010E425DB4C80C38 /* Ionicons.ttf */,
+				82A386A32207299B00D6946D /* GoogleMaps.bundle */,
 				C196FA2E86E1418D99802B28 /* MaterialCommunityIcons.ttf */,
 				16D9824E52CE48D58A1E6248 /* MaterialIcons.ttf */,
 				CA63A234C2DD43EF99DE1AFF /* Octicons.ttf */,
@@ -177,6 +185,7 @@
 		B56386431DB9693800A0598C /* firealarmapp */ = {
 			isa = PBXGroup;
 			children = (
+				827B5EF522009F09002CA489 /* firealarmapp.entitlements */,
 				B56386471DB9693800A0598C /* AppDelegate.h */,
 				B56386481DB9693800A0598C /* AppDelegate.m */,
 				B56386501DB9693800A0598C /* Assets.xcassets */,
@@ -212,9 +221,9 @@
 				23539343DCC44EF8449429EE /* [CP] Check Pods Manifest.lock */,
 				B5722AD01DFB7E3F0084848F /* Prepare Expo */,
 				B563863D1DB9693800A0598C /* Sources */,
+				AA38385B7D8D0854176B72FC /* [CP] Copy Pods Resources */,
 				B563863E1DB9693800A0598C /* Frameworks */,
 				B563863F1DB9693800A0598C /* Resources */,
-				AA38385B7D8D0854176B72FC /* [CP] Copy Pods Resources */,
 				19D233B7204FDD7D0087ED51 /* Bundle Expo Assets */,
 			);
 			buildRules = (
@@ -239,6 +248,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = Q233PQ4GTD;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -274,6 +288,7 @@
 				B5693E921FABD46800307FA4 /* launch_icon.png in Resources */,
 				B5693E8E1FABD16A00307FA4 /* LaunchScreen.xib in Resources */,
 				B5DB04801F3A684600E91581 /* shell-app-manifest.json in Resources */,
+				82A386A42207299B00D6946D /* GoogleMaps.bundle in Resources */,
 				B5DB04811F3A684600E91581 /* shell-app.bundle in Resources */,
 				B56386511DB9693800A0598C /* Assets.xcassets in Resources */,
 				82F6EF5521E5661500AB3B85 /* splash.png in Resources */,
@@ -397,7 +412,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "env\n#\"${SRCROOT}/Pods/Target Support Files/Pods-firealarmapp/Pods-firealarmapp-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-firealarmapp/Pods-firealarmapp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B5722AD01DFB7E3F0084848F /* Prepare Expo */ = {
@@ -536,12 +551,20 @@
 			baseConfigurationReference = 2C1548D9E4CB1AEFA5CCAE6D /* Pods-firealarmapp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Q233PQ4GTD;
+				CODE_SIGN_ENTITLEMENTS = firealarmapp/firealarmapp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/firealarmapp/Supporting/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kapilpau.iotfirealarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -551,12 +574,20 @@
 			baseConfigurationReference = A47FE4D7F70906B7DC8CE39B /* Pods-firealarmapp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Q233PQ4GTD;
+				CODE_SIGN_ENTITLEMENTS = firealarmapp/firealarmapp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/firealarmapp/Supporting/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kapilpau.iotfirealarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -2,9 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:firealarmapp.xcodeproj">
+      location = "group:/Users/Kapil/Google Drive/Uni Folder/FinalYear/Project/firealarmapp/ios/firealarmapp.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:firealarmapp.xcodeproj">
    </FileRef>
 </Workspace>
