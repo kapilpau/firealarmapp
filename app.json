@@ -33,6 +33,10 @@
         "image": "./assets/images/splash.png",
         "resizeMode": "contain",
         "backgroundColor": "#B8EFFF"
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "We require permission to use your camera in order to scan the QR code",
+        "NSLocationWhenInUseUsageDescription": "We require permission to see your location to set the location of this device"
       }
     },
     "isDetached": true,
