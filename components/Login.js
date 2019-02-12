@@ -44,7 +44,7 @@ export default class Login extends React.Component {
                         .then((res) => {
                             this._loginResp(res);
                         });
-                })
+                });
             } else {
                 fetch('http://'+ config.url + ':' + config.port + '/login', {
                     method: 'POST',

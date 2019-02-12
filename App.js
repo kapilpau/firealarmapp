@@ -8,10 +8,13 @@ import Settings from './components/Settings';
 import Signup from './components/Signup';
 import AddDevice from './components/AddDevice';
 import RegisterDevice from './components/RegisterDevice';
+import UpdateDevice from './components/UpdateDevice';
+import Update from './components/Update';
 import SocketIOClient from 'socket.io-client';
 import Alert from './components/Alert';
 import { config } from './config'
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { MenuProvider } from 'react-native-popup-menu';
 
 export default class App extends React.Component {
   state = {
@@ -58,6 +61,8 @@ export default class App extends React.Component {
               Signup: Signup,
               AddDevice: AddDevice,
               RegisterDevice: RegisterDevice,
+              UpdateDevice: UpdateDevice,
+              Update: Update,
               Alert: Alert
           });
       } else {
@@ -68,10 +73,16 @@ export default class App extends React.Component {
               Signup: Signup,
               AddDevice: AddDevice,
               RegisterDevice: RegisterDevice,
+              UpdateDevice: UpdateDevice,
+              Update: Update,
               Alert: Alert
           });
       }
-      return (<RootStack />);
+      return (
+          <MenuProvider>
+              <RootStack />
+          </MenuProvider>
+      );
     // });
         // return (
         //   <View style={styles.container}>

@@ -26,7 +26,8 @@ export default class Settings extends React.Component {
     render() {
       return (
           <View style={{backgroundColor: '#B8EFFF'}}>
-            <Button title="Log Out" onPress={this.handleLogout}/>
+            <Button style={{backgroundColor: '#B8EFFF'}} title="Update Account Details" onPress={() => this.props.navigation.navigate('Update')}/>
+            <Button style={{backgroundColor: '#B8EFFF'}} title="Log Out" onPress={this.handleLogout}/>
           </View>
           );
     }

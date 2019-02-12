@@ -74,25 +74,9 @@ export default class Signup extends React.Component {
                         this.props.navigation.navigate("Home");
                       });
                   }
-
-                // If you need to do anything with the user, do it here
-                // The user will be logged in automatically by the
-                // `onAuthStateChanged` listener we set up in App.js earlier
             })
             .catch((error) => {
               console.log(error);
-                // const { code, message } = error;
-                // switch (code) {
-                //     case 'auth/email-already-in-use':
-                //         this.setState({errorMsg: "User not found/incorrect password. Please check your email and password then try again."});
-                //         break;
-                //     case 'auth/invalid-email':
-                //         this.setState({errorMsg: "Entered email was invalid, please check it and try again."});
-                //         break;
-                //     case 'auth/weak-password':
-                //         this.setState({errorMsg: "Password is too weak"});
-                //         break;
-                // }
             });
           } else {
             let newState = {

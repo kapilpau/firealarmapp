@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, AsyncStorage, ActivityIndicator, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import PTRView from 'react-native-pull-to-refresh';
 import { styles } from './Styles';
 import { Icon, Card } from 'react-native-elements';
@@ -11,7 +11,8 @@ import { Font, AppLoading } from 'expo';
 import ActionButton from 'react-native-action-button';
 import { NavigationEvents } from 'react-navigation';
 import App from '../App';
-import { config } from '../config'
+import { config } from '../config';
+import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
 
 export default class Home extends React.Component {
 
@@ -61,6 +62,8 @@ export default class Home extends React.Component {
         });
     }
 
+
+
     static alarmTriggered(alarm) {
         props.navigation.navigate('Alert', {alarm: JSON.parse(msg), vibrate: true});
     }
@@ -92,18 +95,24 @@ export default class Home extends React.Component {
             } else if (alarm.status === "error" || alarm.status === "triggered" || alarm.status === "triggered") {
               circleColour = 'red';
             }
-            if (alarm.status === "triggered" || alarm.status === "triggered") {
                 return (
 
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Alert', {alarm: alarm, vibrate: false})}
+                    <TouchableWithoutFeedback
+                        key={alarm.id}
+                        onPress={() => {
+                            if (alarm.status === "triggered" || alarm.status === "triggered") {
+                                this.props.navigation.navigate('Alert', {alarm: alarm, vibrate: false})
+                            }
+                        }}
+
+
+
                         style={{
                             width: '100%',
                             paddingLeft: '5%'
                         }}
                     >
                         <Card
-                            key={alarm.id}
                             containerStyle={{
                                 justifyContent: 'center',
                                 margin: 2,
@@ -132,61 +141,42 @@ export default class Home extends React.Component {
                                     </Text>
                                 </View>
                                 <View style={{
-                                    width: circleSize,
-                                    height: circleSize,
-                                    borderRadius: circleSize / 2,
                                     position: 'absolute',
-                                    right: '1%',
-                                    top: '30%',
-                                    backgroundColor: circleColour
-                                }}/>
-                            </View>
-                        </Card>
-                    </TouchableOpacity>
-                );
-            } else {
-                return (
-                        <Card
-                            key={alarm.id}
-                            containerStyle={{
-                                justifyContent: 'center',
-                                margin: 2,
-                                backgroundColor: 'white',
-                                width: '90%',
-                                paddingTop: 10,
-                                paddingLeft: '5%',
-                                marginBottom: 30
-                            }}
-                        >
-                            <View>
-                                <View
-                                    style={{
-                                        right: '5%'
-                                    }}
-                                >
-                                    <Text style={{fontSize: 20}}>
-                                        {alarm.name + "\n"}
-                                    </Text>
-                                    <Text style={{fontSize: 13}}>
-                                        {alarm.addressName + "\n"}
-                                    </Text>
-                                    <Text style={{fontSize: 15}}>
-                                        {alarm.comments + "\n"}
-                                    </Text>
+                                    right: '1%'
+                                }}>
+                                    <Menu>
+                                        <MenuTrigger>
+
+                                            <Icon
+                                                style={{
+                                                    position: 'absolute',
+                                                    paddingRight: '-2%'
+                                                }}
+                                                name='dots-vertical'
+                                                type='material-community'
+                                            />
+                                        </MenuTrigger>
+                                        <MenuOptions>
+                                            <MenuOption onSelect={() => this.props.navigation.navigate('UpdateDevice', {alarm: alarm})} text='Edit Device' />
+                                            <MenuOption onSelect={() => this._deregisterAlarm(alarm.id)} text='Deregister Device' />
+                                            <MenuOption onSelect={() => this._deleteAlarm(alarm.id)} text='Delete Device' />
+                                        </MenuOptions>
+                                    </Menu>
+                                    <View style={{
+                                        width: circleSize,
+                                        height: circleSize,
+                                        borderRadius: circleSize / 2,
+                                        position: 'absolute',
+                                        right: '1%',
+                                        top: '200%',
+                                        backgroundColor: circleColour
+                                    }}/>
                                 </View>
-                                <View style={{
-                                    width: circleSize,
-                                    height: circleSize,
-                                    borderRadius: circleSize / 2,
-                                    position: 'absolute',
-                                    right: '1%',
-                                    top: '30%',
-                                    backgroundColor: circleColour
-                                }}/>
                             </View>
                         </Card>
+                    </TouchableWithoutFeedback>
                 );
-            }
+
           });
           try {
                 return (
@@ -231,7 +221,6 @@ export default class Home extends React.Component {
             fetch('http://' + config.url + ':' + config.port + '/getDevices/' + user.id, {
                 method: 'GET',
                 headers: {
-                    // Accept: 'application/json',
                     'Content-Type': 'application/json',
                 }
             })
@@ -246,6 +235,45 @@ export default class Home extends React.Component {
                     reject(e);
             })
         });
+    }
+
+    _deleteAlarm(id){
+        fetch('http://' + config.url + ':' + config.port + '/deleteDevice/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        }).then(res => res.json())
+            .then(res => {
+                if (res.message === "Success"){
+                    this._renderAlarms();
+                } else {
+                    alert("Something went wrong");
+                }
+            });
+    }
+
+    _deregisterAlarm(id){
+        fetch('http://' + config.url + ':' + config.port + '/deregisterDevice/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                alarm: id,
+                user: global.user.id
+            })
+        }).then(res => res.json())
+            .then(res => {
+                if (res.message === "Success"){
+                    this._renderAlarms();
+                } else {
+                    alert("Something went wrong");
+                }
+            });
     }
 
 };

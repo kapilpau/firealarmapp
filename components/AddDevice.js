@@ -29,25 +29,21 @@ export default class AddDevice extends React.Component {
         AsyncStorage.getItem('user').then(user => {
             this.setState({user: JSON.parse(user)});
         });
-        Alert.alert('Permission Required',
-                'We require permission to use your camera to scan the QR code, press OK then allow to grant permission',
-            [
-                {
-                    text: 'OK',
-                    onPress: () => this.getPermissions()
-                }
-            ]
-        );
-
-    }
-
-    getPermissions(){
+        // Alert.alert('Permission Required',
+        //         'We require permission to use your camera to scan the QR code, press OK then allow to grant permission',
+        //     [
+        //         {
+        //             text: 'OK',
+        //             onPress: () => this.getPermissions()
+        //         }
+        //     ]
+        // );
         const { status } = Permissions.askAsync(Permissions.CAMERA)
             .then(res => {
                 console.log(res);
                 this.setState({ hasCameraPermission: res.permissions.camera.status === 'granted' });
             });
-    };
+    }
 
     _addDevice = () => {
         fetch('http://'+ config.url + ':' + config.port + '/assignDevice', {

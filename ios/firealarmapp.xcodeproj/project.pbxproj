@@ -17,7 +17,10 @@
 		5CD312AFE2284A689EAF0AA9 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FD353F6E7BF4204A2CBDE42 /* SimpleLineIcons.ttf */; };
 		82A386A02207293D00D6946D /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82A3869F2207293D00D6946D /* GoogleMaps.framework */; };
 		82A386A42207299B00D6946D /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 82A386A32207299B00D6946D /* GoogleMaps.bundle */; };
-		82F6EF5521E5661500AB3B85 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F6EF5021E5661500AB3B85 /* splash.png */; };
+		82A386A52209054300D6946D /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A386A72209054300D6946D /* splash.png */; };
+		82F5F80C220907EE001F112E /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F5F80B220907EE001F112E /* splash.png */; };
+		82F5F80E220907FD001F112E /* lauch_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F5F80D220907FC001F112E /* lauch_icon.png */; };
+		82F5F81422090923001F112E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82F5F81322090922001F112E /* LaunchScreen.xib */; };
 		82F6EF5621E5661500AB3B85 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F6EF5121E5661500AB3B85 /* icon.png */; };
 		82F6EF5721E5661500AB3B85 /* alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82F6EF5221E5661500AB3B85 /* alarm.mp3 */; };
 		82F6EF5821E5661500AB3B85 /* alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 82F6EF5321E5661500AB3B85 /* alert.png */; };
@@ -29,9 +32,7 @@
 		B56386511DB9693800A0598C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B56386501DB9693800A0598C /* Assets.xcassets */; };
 		B56386611DB96A5E00A0598C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B563865E1DB96A5E00A0598C /* main.m */; };
 		B56386671DB9994300A0598C /* EXSDKVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = B56386661DB9994300A0598C /* EXSDKVersions.plist */; };
-		B5693E8E1FABD16A00307FA4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5693E8D1FABD16A00307FA4 /* LaunchScreen.xib */; };
 		B5693E911FABD46800307FA4 /* launch_background_image.png in Resources */ = {isa = PBXBuildFile; fileRef = B5693E8F1FABD46800307FA4 /* launch_background_image.png */; };
-		B5693E921FABD46800307FA4 /* launch_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B5693E901FABD46800307FA4 /* launch_icon.png */; };
 		B5CFBF4F1EDE419400B4BE24 /* EXBuildConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5CFBF4E1EDE419400B4BE24 /* EXBuildConstants.plist */; };
 		B5DB04801F3A684600E91581 /* shell-app-manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = B5DB047E1F3A684600E91581 /* shell-app-manifest.json */; };
 		B5DB04811F3A684600E91581 /* shell-app.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B5DB047F1F3A684600E91581 /* shell-app.bundle */; };
@@ -56,7 +57,10 @@
 		827B5EF522009F09002CA489 /* firealarmapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = firealarmapp.entitlements; sourceTree = "<group>"; };
 		82A3869F2207293D00D6946D /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		82A386A32207299B00D6946D /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
-		82F6EF5021E5661500AB3B85 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = splash.png; path = ../assets/images/splash.png; sourceTree = "<group>"; };
+		82A386A62209054300D6946D /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/splash.png; sourceTree = "<group>"; };
+		82F5F80B220907EE001F112E /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = splash.png; path = ../../../assets/images/splash.png; sourceTree = "<group>"; };
+		82F5F80D220907FC001F112E /* lauch_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lauch_icon.png; sourceTree = "<group>"; };
+		82F5F81322090922001F112E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		82F6EF5121E5661500AB3B85 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../assets/images/icon.png; sourceTree = "<group>"; };
 		82F6EF5221E5661500AB3B85 /* alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = alarm.mp3; path = ../assets/audio/alarm.mp3; sourceTree = "<group>"; };
 		82F6EF5321E5661500AB3B85 /* alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = alert.png; path = ../assets/images/alert.png; sourceTree = "<group>"; };
@@ -73,9 +77,7 @@
 		B563865C1DB96A5E00A0598C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B563865E1DB96A5E00A0598C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B56386661DB9994300A0598C /* EXSDKVersions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EXSDKVersions.plist; sourceTree = "<group>"; };
-		B5693E8D1FABD16A00307FA4 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		B5693E8F1FABD46800307FA4 /* launch_background_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_background_image.png; sourceTree = "<group>"; };
-		B5693E901FABD46800307FA4 /* launch_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_icon.png; sourceTree = "<group>"; };
 		B5CFBF4E1EDE419400B4BE24 /* EXBuildConstants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EXBuildConstants.plist; sourceTree = "<group>"; };
 		B5DB047E1F3A684600E91581 /* shell-app-manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "shell-app-manifest.json"; sourceTree = "<group>"; };
 		B5DB047F1F3A684600E91581 /* shell-app.bundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shell-app.bundle"; sourceTree = "<group>"; };
@@ -117,7 +119,7 @@
 				82F6EF5321E5661500AB3B85 /* alert.png */,
 				82F6EF5121E5661500AB3B85 /* icon.png */,
 				82F6EF5421E5661500AB3B85 /* SpaceMono-Regular.ttf */,
-				82F6EF5021E5661500AB3B85 /* splash.png */,
+				82A386A72209054300D6946D /* splash.png */,
 				85AC1ABABC1B4D519524371E /* AntDesign.ttf */,
 				5FBF93F10CE643A98E0D1468 /* Entypo.ttf */,
 				B9A72B778071495189A55E28 /* EvilIcons.ttf */,
@@ -198,9 +200,10 @@
 			isa = PBXGroup;
 			children = (
 				B5693E8F1FABD46800307FA4 /* launch_background_image.png */,
-				B5693E901FABD46800307FA4 /* launch_icon.png */,
-				B5693E8D1FABD16A00307FA4 /* LaunchScreen.xib */,
 				B5DB047E1F3A684600E91581 /* shell-app-manifest.json */,
+				82F5F80D220907FC001F112E /* lauch_icon.png */,
+				82F5F81322090922001F112E /* LaunchScreen.xib */,
+				82F5F80B220907EE001F112E /* splash.png */,
 				B5DB047F1F3A684600E91581 /* shell-app.bundle */,
 				B5CFBF4E1EDE419400B4BE24 /* EXBuildConstants.plist */,
 				B501732A1DC01252003445D9 /* EXShell.plist */,
@@ -279,23 +282,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82F5F80E220907FD001F112E /* lauch_icon.png in Resources */,
 				82F6EF5821E5661500AB3B85 /* alert.png in Resources */,
 				82F6EF5621E5661500AB3B85 /* icon.png in Resources */,
 				B5693E911FABD46800307FA4 /* launch_background_image.png in Resources */,
 				B501732B1DC01252003445D9 /* EXShell.plist in Resources */,
 				B5CFBF4F1EDE419400B4BE24 /* EXBuildConstants.plist in Resources */,
 				B56386671DB9994300A0598C /* EXSDKVersions.plist in Resources */,
-				B5693E921FABD46800307FA4 /* launch_icon.png in Resources */,
-				B5693E8E1FABD16A00307FA4 /* LaunchScreen.xib in Resources */,
 				B5DB04801F3A684600E91581 /* shell-app-manifest.json in Resources */,
 				82A386A42207299B00D6946D /* GoogleMaps.bundle in Resources */,
 				B5DB04811F3A684600E91581 /* shell-app.bundle in Resources */,
+				82F5F81422090923001F112E /* LaunchScreen.xib in Resources */,
 				B56386511DB9693800A0598C /* Assets.xcassets in Resources */,
-				82F6EF5521E5661500AB3B85 /* splash.png in Resources */,
+				82A386A52209054300D6946D /* splash.png in Resources */,
 				82F6EF5721E5661500AB3B85 /* alarm.mp3 in Resources */,
 				82F6EF5921E5661500AB3B85 /* SpaceMono-Regular.ttf in Resources */,
 				93C13A83811D461293A5E2FA /* AntDesign.ttf in Resources */,
 				27259BE7F5C54F45898F0012 /* Entypo.ttf in Resources */,
+				82F5F80C220907EE001F112E /* splash.png in Resources */,
 				5B211716AC1C4F14BD79D90B /* EvilIcons.ttf in Resources */,
 				115C353E605949CD8C4233D8 /* Feather.ttf in Resources */,
 				D572816B26F34739A283B9B8 /* FontAwesome.ttf in Resources */,
@@ -442,6 +446,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		82A386A72209054300D6946D /* splash.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				82A386A62209054300D6946D /* Base */,
+			);
+			name = splash.png;
+			path = ../assets/images;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B56386561DB9693800A0598C /* Debug */ = {
